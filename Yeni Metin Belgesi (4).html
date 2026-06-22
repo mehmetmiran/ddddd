@@ -1,0 +1,3608 @@
+TUVTRK RANDEVU SISTEMI
+KAYNAK KOD DOKUMANTASYONU
+Tum HTML, CSS ve JavaScript dosyalarinin tam icerigi
+Olusturma Tarihi: 22 Haziran 2026
+Toplam Dosya: 6 | Toplam Satir: ~3000+
+index.html
+Aciklama: Musteri Randevu Ekrani - Ana HTML yapisi, 5 adimli form + basari sayfasi
+Boyut: 23381 karakter | Satir: 520
+&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;
+ &lt;meta charset="UTF-8"&gt;
+ &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+ &lt;title&gt;TÜVTÜRK - Araç Muayene Randevu Sistemi&lt;/title&gt;
+ &lt;link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"&gt;
+ &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+ &lt;!-- Loading Overlay --&gt;
+ &lt;div class="loading-overlay" id="loadingOverlay"&gt;
+ &lt;div class="spinner"&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Header --&gt;
+ &lt;header class="header"&gt;
+ &lt;div class="header-top"&gt;
+ &lt;div class="header-top-content"&gt;
+ &lt;div&gt;
+ &lt;i class="fas fa-info-circle"&gt;&lt;/i&gt; COVID-19 önlemleri kapsamında istasyonlarımızda tüm hijyen kuralları uygulanmaktadır.
+ &lt;/div&gt;
+ &lt;div style="display: flex; gap: 20px;"&gt;
+ &lt;span&gt;&lt;i class="fas fa-globe"&gt;&lt;/i&gt; TR&lt;/span&gt;
+ &lt;span&gt;&lt;i class="fas fa-user"&gt;&lt;/i&gt; Giriş Yap&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="header-main"&gt;
+ &lt;div class="logo"&gt;
+ &lt;div class="logo-icon"&gt;
+ &lt;i class="fas fa-car"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;div class="logo-text"&gt;
+ &lt;h1&gt;TÜVTÜRK&lt;/h1&gt;
+ &lt;span&gt;Araç Muayene İstasyonları&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="header-contact"&gt;
+ &lt;div class="contact-item"&gt;
+ &lt;i class="fas fa-phone-alt"&gt;&lt;/i&gt;
+ &lt;div&gt;
+ &lt;div style="font-size: 12px; opacity: 0.8;"&gt;Çağrı Merkezi&lt;/div&gt;
+ &lt;div style="font-weight: bold;"&gt;0850 222 88 88&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/header&gt;
+ &lt;!-- Navigation --&gt;
+ &lt;nav class="nav"&gt;
+ &lt;div class="nav-content"&gt;
+ &lt;a href="#" class="nav-item active"&gt;&lt;i class="fas fa-calendar-check"&gt;&lt;/i&gt; Randevu Al&lt;/a&gt;
+ &lt;a href="#" class="nav-item"&gt;&lt;i class="fas fa-search"&gt;&lt;/i&gt; Randevu Sorgula&lt;/a&gt;
+ &lt;a href="#" class="nav-item"&gt;&lt;i class="fas fa-times-circle"&gt;&lt;/i&gt; Randevu İptal&lt;/a&gt;
+ &lt;a href="#" class="nav-item"&gt;&lt;i class="fas fa-map-marker-alt"&gt;&lt;/i&gt; İstasyonlar&lt;/a&gt;
+ &lt;a href="#" class="nav-item"&gt;&lt;i class="fas fa-file-alt"&gt;&lt;/i&gt; Belgeler&lt;/a&gt;
+ &lt;a href="#" class="nav-item"&gt;&lt;i class="fas fa-question-circle"&gt;&lt;/i&gt; SSS&lt;/a&gt;
+ &lt;/div&gt;
+ &lt;/nav&gt;
+ &lt;!-- Main Content --&gt;
+ &lt;div class="container"&gt;
+ &lt;!-- Progress Steps --&gt;
+ &lt;div class="progress-container"&gt;
+ &lt;div class="progress-steps"&gt;
+ &lt;div class="progress-line"&gt;
+ &lt;div class="progress-line-fill" id="progressLine" style="width: 0%;"&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="step active" id="step1Indicator"&gt;
+ &lt;div class="step-circle"&gt;1&lt;/div&gt;
+ &lt;div class="step-label"&gt;Araç Bilgileri&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="step" id="step2Indicator"&gt;
+ &lt;div class="step-circle"&gt;2&lt;/div&gt;
+ &lt;div class="step-label"&gt;Muayene Türü&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="step" id="step3Indicator"&gt;
+ &lt;div class="step-circle"&gt;3&lt;/div&gt;
+ &lt;div class="step-label"&gt;Tarih &amp; Saat&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="step" id="step4Indicator"&gt;
+ &lt;div class="step-circle"&gt;4&lt;/div&gt;
+ &lt;div class="step-label"&gt;Kişisel Bilgiler&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="step" id="step5Indicator"&gt;
+ &lt;div class="step-circle"&gt;5&lt;/div&gt;
+ &lt;div class="step-label"&gt;Onay&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Step 1: Vehicle Information --&gt;
+ &lt;div class="form-container fade-in" id="step1"&gt;
+ &lt;div class="form-header"&gt;
+ &lt;h2&gt;&lt;i class="fas fa-car-side"&gt;&lt;/i&gt; Araç Bilgileri&lt;/h2&gt;
+ &lt;p&gt;Muayene işlemi için aracınızın bilgilerini giriniz.&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="info-box"&gt;
+ &lt;i class="fas fa-info-circle"&gt;&lt;/i&gt;
+ &lt;div class="info-box-content"&gt;
+ &lt;h4&gt;Bilgilendirme&lt;/h4&gt;
+ &lt;p&gt;Randevu almak için aracınızın plaka numarası ve ruhsat seri numarası gereklidir. Lütfen bilgilerinizi eksiksiz ve doğru giriniz.&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="form-grid"&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Plaka Numarası &lt;span class="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+ &lt;div class="input-icon"&gt;
+ &lt;input type="text" id="plaka" placeholder="Örn: 34 ABC 123" maxlength="10" style="text-transform: uppercase;"&gt;
+ &lt;i class="fas fa-car"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Ruhsat Seri No &lt;span class="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+ &lt;div class="input-icon"&gt;
+ &lt;input type="text" id="ruhsatSeri" placeholder="Örn: A123456" maxlength="10" style="text-transform: uppercase;"&gt;
+ &lt;i class="fas fa-id-card"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Şehir &lt;span class="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+ &lt;select id="sehir"&gt;
+ &lt;option value=""&gt;Şehir Seçiniz&lt;/option&gt;
+ &lt;option value="istanbul"&gt;İstanbul&lt;/option&gt;
+ &lt;option value="ankara"&gt;Ankara&lt;/option&gt;
+ &lt;option value="izmir"&gt;İzmir&lt;/option&gt;
+ &lt;option value="bursa"&gt;Bursa&lt;/option&gt;
+ &lt;option value="antalya"&gt;Antalya&lt;/option&gt;
+ &lt;option value="adana"&gt;Adana&lt;/option&gt;
+ &lt;option value="konya"&gt;Konya&lt;/option&gt;
+ &lt;option value="gaziantep"&gt;Gaziantep&lt;/option&gt;
+ &lt;/select&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;İlçe / İstasyon &lt;span class="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+ &lt;select id="istasyon" disabled&gt;
+ &lt;option value=""&gt;Önce Şehir Seçiniz&lt;/option&gt;
+ &lt;/select&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="button-group"&gt;
+ &lt;div&gt;&lt;/div&gt;
+ &lt;button class="btn btn-primary" onclick="nextStep(1)"&gt;
+ Devam Et &lt;i class="fas fa-arrow-right"&gt;&lt;/i&gt;
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Step 2: Inspection Type --&gt;
+ &lt;div class="form-container hidden fade-in" id="step2"&gt;
+ &lt;div class="form-header"&gt;
+ &lt;h2&gt;&lt;i class="fas fa-clipboard-check"&gt;&lt;/i&gt; Muayene Türü Seçimi&lt;/h2&gt;
+ &lt;p&gt;Yapılacak muayene türünü seçiniz.&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="info-box"&gt;
+ &lt;i class="fas fa-lightbulb"&gt;&lt;/i&gt;
+ &lt;div class="info-box-content"&gt;
+ &lt;h4&gt;Muayene Türleri Hakkında&lt;/h4&gt;
+ &lt;p&gt;Periyodik muayene: Trafikteki araçların belirli aralıklarla yaptırmak zorunda olduğu kontroldür. Tespit muayenesi: Trafik kazası veya benzeri durumlarda yapılan kontroldür.&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="type-grid"&gt;
+ &lt;div class="type-card" onclick="selectType(this, 'periyodik')" data-type="periyodik"&gt;
+ &lt;div class="type-icon"&gt;
+ &lt;i class="fas fa-sync-alt"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;h3&gt;Periyodik Muayene&lt;/h3&gt;
+ &lt;p&gt;Zorunlu periyodik araç muayenesi. Tüm motorlu taşıtlar için geçerlidir.&lt;/p&gt;
+ &lt;div class="type-price"&gt;₺1.872,42&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="type-card" onclick="selectType(this, 'tespit')" data-type="tespit"&gt;
+ &lt;div class="type-icon"&gt;
+ &lt;i class="fas fa-search"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;h3&gt;Tespit Muayenesi&lt;/h3&gt;
+ &lt;p&gt;Kaza, hasar veya trafik cezası sonrası yapılan kontrol muayenesi.&lt;/p&gt;
+ &lt;div class="type-price"&gt;₺1.872,42&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="type-card" onclick="selectType(this, 'yenileme')" data-type="yenileme"&gt;
+ &lt;div class="type-icon"&gt;
+ &lt;i class="fas fa-redo"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;h3&gt;Muayene Tekrarı&lt;/h3&gt;
+ &lt;p&gt;Önceki muayenede eksik çıkan araçların tekrar muayenesi.&lt;/p&gt;
+ &lt;div class="type-price"&gt;₺936,21&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="type-card" onclick="selectType(this, 'tadilat')" data-type="tadilat"&gt;
+ &lt;div class="type-icon"&gt;
+ &lt;i class="fas fa-wrench"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;h3&gt;Tadilat Muayenesi&lt;/h3&gt;
+ &lt;p&gt;Araç üzerinde yapılan değişiklik ve tadilat sonrası kontrol.&lt;/p&gt;
+ &lt;div class="type-price"&gt;₺1.404,32&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="button-group"&gt;
+ &lt;button class="btn btn-secondary" onclick="prevStep(2)"&gt;
+ &lt;i class="fas fa-arrow-left"&gt;&lt;/i&gt; Geri
+ &lt;/button&gt;
+ &lt;button class="btn btn-primary" onclick="nextStep(2)"&gt;
+ Devam Et &lt;i class="fas fa-arrow-right"&gt;&lt;/i&gt;
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Step 3: Date &amp; Time --&gt;
+ &lt;div class="form-container hidden fade-in" id="step3"&gt;
+ &lt;div class="form-header"&gt;
+ &lt;h2&gt;&lt;i class="fas fa-calendar-alt"&gt;&lt;/i&gt; Tarih ve Saat Seçimi&lt;/h2&gt;
+ &lt;p&gt;Muayene için uygun tarih ve saati seçiniz.&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="station-card"&gt;
+ &lt;div class="station-header"&gt;
+ &lt;div class="station-icon"&gt;
+ &lt;i class="fas fa-building"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;div class="station-info"&gt;
+ &lt;h3 id="stationName"&gt;TÜVTÜRK İstanbul - Pendik İstasyonu&lt;/h3&gt;
+ &lt;p id="stationAddress"&gt;Sanayi Mah. Tersaneler Bulvarı No:12, Pendik/İstanbul&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="station-details"&gt;
+ &lt;div class="detail-item"&gt;
+ &lt;i class="fas fa-clock"&gt;&lt;/i&gt;
+ &lt;span&gt;08:00 - 17:00&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="detail-item"&gt;
+ &lt;i class="fas fa-phone"&gt;&lt;/i&gt;
+ &lt;span&gt;0216 354 88 88&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="detail-item"&gt;
+ &lt;i class="fas fa-map-marker-alt"&gt;&lt;/i&gt;
+ &lt;span&gt;Haritada Gör&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="calendar-container"&gt;
+ &lt;div class="calendar-box"&gt;
+ &lt;div class="calendar-header"&gt;
+ &lt;h3&gt;Tarih Seçimi&lt;/h3&gt;
+ &lt;div class="calendar-nav"&gt;
+ &lt;button onclick="changeMonth(-1)"&gt;&lt;i class="fas fa-chevron-left"&gt;&lt;/i&gt;&lt;/button&gt;
+ &lt;button onclick="changeMonth(1)"&gt;&lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div style="text-align: center; margin-bottom: 15px; font-weight: 600; color: #1e3a5f;" id="currentMonth"&gt;&lt;/div&gt;
+ &lt;div class="calendar-grid" id="calendarGrid"&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="calendar-box"&gt;
+ &lt;div class="calendar-header"&gt;
+ &lt;h3&gt;Saat Seçimi&lt;/h3&gt;
+ &lt;/div&gt;
+ &lt;div style="text-align: center; margin-bottom: 15px; font-weight: 600; color: #1e3a5f;" id="selectedDateText"&gt;Lütfen tarih seçiniz&lt;/div&gt;
+ &lt;div class="time-slots" id="timeSlots"&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="button-group"&gt;
+ &lt;button class="btn btn-secondary" onclick="prevStep(3)"&gt;
+ &lt;i class="fas fa-arrow-left"&gt;&lt;/i&gt; Geri
+ &lt;/button&gt;
+ &lt;button class="btn btn-primary" onclick="nextStep(3)"&gt;
+ Devam Et &lt;i class="fas fa-arrow-right"&gt;&lt;/i&gt;
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Step 4: Personal Information --&gt;
+ &lt;div class="form-container hidden fade-in" id="step4"&gt;
+ &lt;div class="form-header"&gt;
+ &lt;h2&gt;&lt;i class="fas fa-user"&gt;&lt;/i&gt; Kişisel Bilgiler&lt;/h2&gt;
+ &lt;p&gt;Randevu sahibi bilgilerini giriniz.&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="form-grid"&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Ad &lt;span class="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+ &lt;input type="text" id="ad" placeholder="Adınızı giriniz"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Soyad &lt;span class="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+ &lt;input type="text" id="soyad" placeholder="Soyadınızı giriniz"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;T.C. Kimlik No &lt;span class="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+ &lt;input type="text" id="tcNo" placeholder="T.C. Kimlik Numaranız" maxlength="11"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Telefon &lt;span class="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+ &lt;div class="input-icon"&gt;
+ &lt;input type="tel" id="telefon" placeholder="05XX XXX XX XX" maxlength="11"&gt;
+ &lt;i class="fas fa-phone"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;E-posta &lt;span class="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+ &lt;div class="input-icon"&gt;
+ &lt;input type="email" id="email" placeholder="ornek@email.com"&gt;
+ &lt;i class="fas fa-envelope"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Araç Türü&lt;/label&gt;
+ &lt;select id="aracTuru"&gt;
+ &lt;option&gt;Otomobil&lt;/option&gt;
+ &lt;option&gt;Minibüs&lt;/option&gt;
+ &lt;option&gt;Otobüs&lt;/option&gt;
+ &lt;option&gt;Kamyon&lt;/option&gt;
+ &lt;option&gt;Kamyonet&lt;/option&gt;
+ &lt;option&gt;Motosiklet&lt;/option&gt;
+ &lt;/select&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="checkbox-group" onclick="document.getElementById('kvkk').click()"&gt;
+ &lt;input type="checkbox" id="kvkk" style="pointer-events: none;"&gt;
+ &lt;label style="pointer-events: none;"&gt;
+ &lt;strong&gt;KVKK Aydınlatma Metni'ni&lt;/strong&gt; okudum, kişisel verilerimin işlenmesine izin veriyorum.
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="checkbox-group" onclick="document.getElementById('sms').click()"&gt;
+ &lt;input type="checkbox" id="sms" checked style="pointer-events: none;"&gt;
+ &lt;label style="pointer-events: none;"&gt;
+ Randevu hatırlatma SMS'i almak istiyorum.
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="button-group"&gt;
+ &lt;button class="btn btn-secondary" onclick="prevStep(4)"&gt;
+ &lt;i class="fas fa-arrow-left"&gt;&lt;/i&gt; Geri
+ &lt;/button&gt;
+ &lt;button class="btn btn-primary" onclick="nextStep(4)"&gt;
+ Devam Et &lt;i class="fas fa-arrow-right"&gt;&lt;/i&gt;
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Step 5: Summary &amp; Confirm --&gt;
+ &lt;div class="form-container hidden fade-in" id="step5"&gt;
+ &lt;div class="form-header"&gt;
+ &lt;h2&gt;&lt;i class="fas fa-clipboard-list"&gt;&lt;/i&gt; Randevu Özeti&lt;/h2&gt;
+ &lt;p&gt;Bilgilerinizi kontrol edin ve randevunuzu onaylayın.&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-box"&gt;
+ &lt;div class="summary-header"&gt;
+ &lt;i class="fas fa-car"&gt;&lt;/i&gt;
+ &lt;h3&gt;Randevu Detayları&lt;/h3&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-row"&gt;
+ &lt;span class="summary-label"&gt;Plaka&lt;/span&gt;
+ &lt;span class="summary-value" id="summaryPlaka"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-row"&gt;
+ &lt;span class="summary-label"&gt;Muayene Türü&lt;/span&gt;
+ &lt;span class="summary-value" id="summaryType"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-row"&gt;
+ &lt;span class="summary-label"&gt;Tarih&lt;/span&gt;
+ &lt;span class="summary-value" id="summaryDate"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-row"&gt;
+ &lt;span class="summary-label"&gt;Saat&lt;/span&gt;
+ &lt;span class="summary-value" id="summaryTime"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-row"&gt;
+ &lt;span class="summary-label"&gt;İstasyon&lt;/span&gt;
+ &lt;span class="summary-value" id="summaryStation"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-row"&gt;
+ &lt;span class="summary-label"&gt;Ad Soyad&lt;/span&gt;
+ &lt;span class="summary-value" id="summaryName"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-row"&gt;
+ &lt;span class="summary-label"&gt;Telefon&lt;/span&gt;
+ &lt;span class="summary-value" id="summaryPhone"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-row"&gt;
+ &lt;span class="summary-label"&gt;Ücret&lt;/span&gt;
+ &lt;span class="summary-value" id="summaryPrice"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="checkbox-group" onclick="document.getElementById('onay').click()" style="margin-top: 20px;"&gt;
+ &lt;input type="checkbox" id="onay" style="pointer-events: none;"&gt;
+ &lt;label style="pointer-events: none;"&gt;
+ Yukarıdaki bilgilerin doğruluğunu onaylıyorum ve &lt;strong&gt;muayene ücretini&lt;/strong&gt; istasyonda ödeyeceğimi kabul ediyorum.
+ &lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="button-group"&gt;
+ &lt;button class="btn btn-secondary" onclick="prevStep(5)"&gt;
+ &lt;i class="fas fa-arrow-left"&gt;&lt;/i&gt; Geri Düzenle
+ &lt;/button&gt;
+ &lt;button class="btn btn-success" onclick="confirmAppointment()"&gt;
+ &lt;i class="fas fa-check-circle"&gt;&lt;/i&gt; Randevuyu Onayla
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Success Page --&gt;
+ &lt;div class="form-container hidden fade-in" id="successPage" style="display: none;"&gt;
+ &lt;div class="success-container"&gt;
+ &lt;div class="success-icon"&gt;
+ &lt;i class="fas fa-check"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;h2&gt;Randevunuz Başarıyla Oluşturuldu!&lt;/h2&gt;
+ &lt;p&gt;Muayene randevunuz onaylanmıştır. Aşağıdaki bilgileri saklayınız.&lt;/p&gt;
+ &lt;div class="appointment-card"&gt;
+ &lt;div class="appointment-number"&gt;
+ &lt;h3&gt;Randevu Numarası&lt;/h3&gt;
+ &lt;div class="number" id="appointmentNo"&gt;R-2026-785421&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="qr-code"&gt;
+ &lt;div class="qr-pattern"&gt;&lt;/div&gt;
+ &lt;i class="fas fa-qrcode"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;div style="text-align: left; margin-top: 20px;"&gt;
+ &lt;div class="summary-row" style="padding: 10px 0; font-size: 14px;"&gt;
+ &lt;span class="summary-label"&gt;Plaka&lt;/span&gt;
+ &lt;span class="summary-value" id="successPlaka"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-row" style="padding: 10px 0; font-size: 14px;"&gt;
+ &lt;span class="summary-label"&gt;Tarih / Saat&lt;/span&gt;
+ &lt;span class="summary-value" id="successDateTime"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summary-row" style="padding: 10px 0; font-size: 14px;"&gt;
+ &lt;span class="summary-label"&gt;İstasyon&lt;/span&gt;
+ &lt;span class="summary-value" id="successStation"&gt;-&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="download-buttons"&gt;
+ &lt;button class="download-btn" onclick="downloadPDF()"&gt;
+ &lt;i class="fas fa-file-pdf"&gt;&lt;/i&gt; PDF İndir
+ &lt;/button&gt;
+ &lt;button class="download-btn" onclick="sendEmail()"&gt;
+ &lt;i class="fas fa-envelope"&gt;&lt;/i&gt; E-posta Gönder
+ &lt;/button&gt;
+ &lt;button class="download-btn" onclick="sendSMS()"&gt;
+ &lt;i class="fas fa-sms"&gt;&lt;/i&gt; SMS Gönder
+ &lt;/button&gt;
+ &lt;button class="download-btn" onclick="location.reload()"&gt;
+ &lt;i class="fas fa-plus"&gt;&lt;/i&gt; Yeni Randevu
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Footer --&gt;
+ &lt;footer class="footer"&gt;
+ &lt;div class="footer-content"&gt;
+ &lt;div class="footer-section"&gt;
+ &lt;h4&gt;Hakkımızda&lt;/h4&gt;
+ &lt;p&gt;TÜVTÜRK, Türkiye'de araç muayene hizmetleri sunan lider kuruluştur. 2007 yılından bu yana güvenli ve kaliteli hizmet anlayışıyla çalışmaktadır.&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="footer-section"&gt;
+ &lt;h4&gt;Hızlı Bağlantılar&lt;/h4&gt;
+ &lt;a href="#"&gt;Randevu Al&lt;/a&gt;
+ &lt;a href="#"&gt;Randevu Sorgula&lt;/a&gt;
+ &lt;a href="#"&gt;İstasyonlarımız&lt;/a&gt;
+ &lt;a href="#"&gt;Muayene Ücretleri&lt;/a&gt;
+ &lt;a href="#"&gt;Sıkça Sorulan Sorular&lt;/a&gt;
+ &lt;/div&gt;
+ &lt;div class="footer-section"&gt;
+ &lt;h4&gt;İletişim&lt;/h4&gt;
+ &lt;p&gt;&lt;i class="fas fa-phone"&gt;&lt;/i&gt; 0850 222 88 88&lt;/p&gt;
+ &lt;p&gt;&lt;i class="fas fa-envelope"&gt;&lt;/i&gt; info@tuvturk.com.tr&lt;/p&gt;
+ &lt;p&gt;&lt;i class="fas fa-map-marker-alt"&gt;&lt;/i&gt; Ankara, Türkiye&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="footer-section"&gt;
+ &lt;h4&gt;Sosyal Medya&lt;/h4&gt;
+ &lt;p&gt;
+ &lt;a href="#"&gt;&lt;i class="fab fa-facebook"&gt;&lt;/i&gt; Facebook&lt;/a&gt;
+ &lt;a href="#"&gt;&lt;i class="fab fa-twitter"&gt;&lt;/i&gt; Twitter&lt;/a&gt;
+ &lt;a href="#"&gt;&lt;i class="fab fa-instagram"&gt;&lt;/i&gt; Instagram&lt;/a&gt;
+ &lt;a href="#"&gt;&lt;i class="fab fa-youtube"&gt;&lt;/i&gt; YouTube&lt;/a&gt;
+ &lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="footer-bottom"&gt;
+ &lt;p&gt;© 2026 TÜVTÜRK Araç Muayene İstasyonları. Tüm hakları saklıdır. | Bu site demo amaçlıdır.&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/footer&gt;
+ &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+style.css
+Aciklama: Musteri Stilleri - Responsive tasarim, animasyonlar, tema renkleri
+Boyut: 19410 karakter | Satir: 1078
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+body {
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+ min-height: 100vh;
+ color: #333;
+}
+/* Header */
+.header {
+ background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+ color: white;
+ padding: 0;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+ position: sticky;
+ top: 0;
+ z-index: 1000;
+}
+.header-top {
+ background: rgba(0,0,0,0.2);
+ padding: 8px 0;
+ font-size: 13px;
+}
+.header-top-content {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 0 20px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+.header-main {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 15px 20px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+.logo {
+ display: flex;
+ align-items: center;
+ gap: 15px;
+}
+.logo-icon {
+ width: 50px;
+ height: 50px;
+ background: white;
+ border-radius: 10px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-weight: bold;
+ color: #1e3a5f;
+ font-size: 20px;
+ box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.logo-text h1 {
+ font-size: 24px;
+ font-weight: 700;
+ letter-spacing: 1px;
+}
+.logo-text span {
+ font-size: 12px;
+ opacity: 0.9;
+ letter-spacing: 2px;
+}
+.header-contact {
+ display: flex;
+ align-items: center;
+ gap: 20px;
+}
+.contact-item {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ font-size: 14px;
+}
+.contact-item i {
+ font-size: 18px;
+ color: #ffd700;
+}
+/* Navigation */
+.nav {
+ background: white;
+ border-bottom: 1px solid #e2e8f0;
+ box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.nav-content {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 0 20px;
+ display: flex;
+ gap: 0;
+}
+.nav-item {
+ padding: 15px 25px;
+ color: #4a5568;
+ text-decoration: none;
+ font-weight: 600;
+ font-size: 14px;
+ border-bottom: 3px solid transparent;
+ transition: all 0.3s;
+ cursor: pointer;
+}
+.nav-item:hover, .nav-item.active {
+ color: #2c5282;
+ border-bottom-color: #2c5282;
+ background: #f7fafc;
+}
+/* Main Container */
+.container {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 40px 20px;
+}
+/* Progress Steps */
+.progress-container {
+ background: white;
+ border-radius: 16px;
+ padding: 30px;
+ margin-bottom: 30px;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.progress-steps {
+ display: flex;
+ justify-content: space-between;
+ position: relative;
+ margin-bottom: 10px;
+}
+.progress-line {
+ position: absolute;
+ top: 20px;
+ left: 0;
+ right: 0;
+ height: 4px;
+ background: #e2e8f0;
+ z-index: 1;
+}
+.progress-line-fill {
+ height: 100%;
+ background: linear-gradient(90deg, #2c5282, #48bb78);
+ transition: width 0.5s ease;
+ border-radius: 2px;
+}
+.step {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ position: relative;
+ z-index: 2;
+ flex: 1;
+}
+.step-circle {
+ width: 44px;
+ height: 44px;
+ border-radius: 50%;
+ background: white;
+ border: 3px solid #e2e8f0;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-weight: bold;
+ color: #a0aec0;
+ transition: all 0.3s;
+ font-size: 16px;
+}
+.step.active .step-circle {
+ background: #2c5282;
+ border-color: #2c5282;
+ color: white;
+ box-shadow: 0 0 0 4px rgba(44, 82, 130, 0.2);
+}
+.step.completed .step-circle {
+ background: #48bb78;
+ border-color: #48bb78;
+ color: white;
+}
+.step-label {
+ margin-top: 10px;
+ font-size: 12px;
+ font-weight: 600;
+ color: #a0aec0;
+ text-align: center;
+}
+.step.active .step-label {
+ color: #2c5282;
+}
+.step.completed .step-label {
+ color: #48bb78;
+}
+/* Form Container */
+.form-container {
+ background: white;
+ border-radius: 16px;
+ padding: 40px;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+ min-height: 500px;
+}
+.form-header {
+ margin-bottom: 30px;
+ padding-bottom: 20px;
+ border-bottom: 2px solid #f0f4f8;
+}
+.form-header h2 {
+ color: #1e3a5f;
+ font-size: 24px;
+ margin-bottom: 8px;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+}
+.form-header p {
+ color: #718096;
+ font-size: 15px;
+}
+.form-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+ gap: 25px;
+}
+.form-group {
+ margin-bottom: 5px;
+}
+.form-group.full-width {
+ grid-column: 1 / -1;
+}
+label {
+ display: block;
+ margin-bottom: 8px;
+ font-weight: 600;
+ color: #2d3748;
+ font-size: 14px;
+}
+label .required {
+ color: #e53e3e;
+ margin-left: 3px;
+}
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+select {
+ width: 100%;
+ padding: 14px 16px;
+ border: 2px solid #e2e8f0;
+ border-radius: 10px;
+ font-size: 15px;
+ transition: all 0.3s;
+ background: #fafbfc;
+ color: #2d3748;
+}
+input:focus, select:focus {
+ outline: none;
+ border-color: #2c5282;
+ background: white;
+ box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.1);
+}
+.input-icon {
+ position: relative;
+}
+.input-icon i {
+ position: absolute;
+ right: 15px;
+ top: 50%;
+ transform: translateY(-50%);
+ color: #a0aec0;
+}
+.info-box {
+ background: linear-gradient(135deg, #ebf8ff 0%, #e6fffa 100%);
+ border-left: 4px solid #2c5282;
+ padding: 20px;
+ border-radius: 10px;
+ margin-bottom: 25px;
+ display: flex;
+ align-items: flex-start;
+ gap: 15px;
+}
+.info-box i {
+ color: #2c5282;
+ font-size: 24px;
+ margin-top: 2px;
+}
+.info-box-content h4 {
+ color: #1e3a5f;
+ margin-bottom: 5px;
+ font-size: 16px;
+}
+.info-box-content p {
+ color: #4a5568;
+ font-size: 14px;
+ line-height: 1.6;
+}
+/* Muayene Turu Cards */
+.type-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+ gap: 20px;
+ margin-top: 20px;
+}
+.type-card {
+ border: 2px solid #e2e8f0;
+ border-radius: 16px;
+ padding: 25px;
+ cursor: pointer;
+ transition: all 0.3s;
+ text-align: center;
+ background: white;
+ position: relative;
+ overflow: hidden;
+}
+.type-card:hover {
+ transform: translateY(-5px);
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ border-color: #2c5282;
+}
+.type-card.selected {
+ border-color: #2c5282;
+ background: linear-gradient(135deg, #ebf8ff 0%, #e6fffa 100%);
+ box-shadow: 0 10px 30px rgba(44, 82, 130, 0.15);
+}
+.type-card.selected::after {
+ content: '\f00c';
+ font-family: 'Font Awesome 6 Free';
+ font-weight: 900;
+ position: absolute;
+ top: 15px;
+ right: 15px;
+ width: 30px;
+ height: 30px;
+ background: #48bb78;
+ color: white;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 14px;
+}
+.type-icon {
+ width: 70px;
+ height: 70px;
+ background: linear-gradient(135deg, #ebf8ff 0%, #e6fffa 100%);
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 0 auto 15px;
+ font-size: 28px;
+ color: #2c5282;
+}
+.type-card.selected .type-icon {
+ background: linear-gradient(135deg, #2c5282 0%, #1e3a5f 100%);
+ color: white;
+}
+.type-card h3 {
+ color: #1e3a5f;
+ margin-bottom: 8px;
+ font-size: 18px;
+}
+.type-card p {
+ color: #718096;
+ font-size: 13px;
+ line-height: 1.5;
+}
+.type-price {
+ margin-top: 15px;
+ font-size: 24px;
+ font-weight: bold;
+ color: #2c5282;
+}
+/* Calendar */
+.calendar-container {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 30px;
+ margin-top: 20px;
+}
+.calendar-box {
+ background: #f7fafc;
+ border-radius: 16px;
+ padding: 25px;
+}
+.calendar-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 20px;
+}
+.calendar-header h3 {
+ color: #1e3a5f;
+ font-size: 18px;
+}
+.calendar-nav {
+ display: flex;
+ gap: 10px;
+}
+.calendar-nav button {
+ width: 36px;
+ height: 36px;
+ border: none;
+ background: white;
+ border-radius: 8px;
+ cursor: pointer;
+ color: #2c5282;
+ font-size: 16px;
+ box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+ transition: all 0.2s;
+}
+.calendar-nav button:hover {
+ background: #2c5282;
+ color: white;
+}
+.calendar-grid {
+ display: grid;
+ grid-template-columns: repeat(7, 1fr);
+ gap: 8px;
+}
+.calendar-day-header {
+ text-align: center;
+ font-size: 12px;
+ font-weight: 700;
+ color: #a0aec0;
+ padding: 10px 0;
+}
+.calendar-day {
+ aspect-ratio: 1;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 10px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.2s;
+ background: white;
+ border: 2px solid transparent;
+}
+.calendar-day:hover:not(.disabled):not(.selected) {
+ border-color: #2c5282;
+ color: #2c5282;
+}
+.calendar-day.selected {
+ background: linear-gradient(135deg, #2c5282 0%, #1e3a5f 100%);
+ color: white;
+ box-shadow: 0 4px 12px rgba(44, 82, 130, 0.3);
+}
+.calendar-day.disabled {
+ color: #cbd5e0;
+ cursor: not-allowed;
+ background: #edf2f7;
+}
+.calendar-day.today {
+ border-color: #ed8936;
+ color: #ed8936;
+}
+/* Time Slots */
+.time-slots {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 10px;
+ margin-top: 15px;
+}
+.time-slot {
+ padding: 12px;
+ border: 2px solid #e2e8f0;
+ border-radius: 10px;
+ text-align: center;
+ cursor: pointer;
+ transition: all 0.2s;
+ font-weight: 600;
+ font-size: 14px;
+ color: #4a5568;
+ background: white;
+}
+.time-slot:hover:not(.disabled):not(.selected) {
+ border-color: #2c5282;
+ color: #2c5282;
+}
+.time-slot.selected {
+ background: linear-gradient(135deg, #2c5282 0%, #1e3a5f 100%);
+ color: white;
+ border-color: #2c5282;
+ box-shadow: 0 4px 12px rgba(44, 82, 130, 0.3);
+}
+.time-slot.disabled {
+ opacity: 0.5;
+ cursor: not-allowed;
+ text-decoration: line-through;
+ background: #edf2f7;
+}
+/* Station Info */
+.station-card {
+ background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+ border-radius: 16px;
+ padding: 25px;
+ margin-top: 20px;
+ border: 2px solid #e2e8f0;
+}
+.station-header {
+ display: flex;
+ align-items: center;
+ gap: 15px;
+ margin-bottom: 20px;
+}
+.station-icon {
+ width: 60px;
+ height: 60px;
+ background: linear-gradient(135deg, #2c5282 0%, #1e3a5f 100%);
+ border-radius: 12px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: white;
+ font-size: 24px;
+}
+.station-info h3 {
+ color: #1e3a5f;
+ font-size: 20px;
+ margin-bottom: 5px;
+}
+.station-info p {
+ color: #718096;
+ font-size: 14px;
+}
+.station-details {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+ gap: 15px;
+}
+.detail-item {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ padding: 12px;
+ background: white;
+ border-radius: 10px;
+ font-size: 14px;
+}
+.detail-item i {
+ color: #2c5282;
+ font-size: 18px;
+}
+/* Summary */
+.summary-box {
+ background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+ border: 2px solid #48bb78;
+ border-radius: 16px;
+ padding: 30px;
+ margin-top: 20px;
+}
+.summary-header {
+ text-align: center;
+ margin-bottom: 25px;
+}
+.summary-header i {
+ font-size: 48px;
+ color: #48bb78;
+ margin-bottom: 10px;
+}
+.summary-header h3 {
+ color: #1e3a5f;
+ font-size: 22px;
+}
+.summary-row {
+ display: flex;
+ justify-content: space-between;
+ padding: 15px 0;
+ border-bottom: 1px solid #c6f6d5;
+ font-size: 15px;
+}
+.summary-row:last-child {
+ border-bottom: none;
+ font-weight: bold;
+ font-size: 18px;
+ color: #1e3a5f;
+ margin-top: 10px;
+ padding-top: 20px;
+ border-top: 2px solid #48bb78;
+}
+.summary-label {
+ color: #4a5568;
+ font-weight: 600;
+}
+.summary-value {
+ color: #1e3a5f;
+ font-weight: 700;
+}
+/* Buttons */
+.button-group {
+ display: flex;
+ justify-content: space-between;
+ margin-top: 35px;
+ padding-top: 25px;
+ border-top: 2px solid #f0f4f8;
+}
+.btn {
+ padding: 14px 32px;
+ border: none;
+ border-radius: 10px;
+ font-size: 16px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+}
+.btn-secondary {
+ background: #edf2f7;
+ color: #4a5568;
+}
+.btn-secondary:hover {
+ background: #e2e8f0;
+}
+.btn-primary {
+ background: linear-gradient(135deg, #2c5282 0%, #1e3a5f 100%);
+ color: white;
+ box-shadow: 0 4px 15px rgba(44, 82, 130, 0.3);
+}
+.btn-primary:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 6px 20px rgba(44, 82, 130, 0.4);
+}
+.btn-success {
+ background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+ color: white;
+ box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+}
+.btn-success:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+}
+/* Success Page */
+.success-container {
+ text-align: center;
+ padding: 40px;
+}
+.success-icon {
+ width: 100px;
+ height: 100px;
+ background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 0 auto 25px;
+ color: white;
+ font-size: 48px;
+ box-shadow: 0 10px 30px rgba(72, 187, 120, 0.3);
+ animation: scaleIn 0.5s ease;
+}
+@keyframes scaleIn {
+ 0% { transform: scale(0); }
+ 50% { transform: scale(1.2); }
+ 100% { transform: scale(1); }
+}
+.success-container h2 {
+ color: #1e3a5f;
+ font-size: 28px;
+ margin-bottom: 10px;
+}
+.success-container &gt; p {
+ color: #718096;
+ font-size: 16px;
+ margin-bottom: 30px;
+}
+.appointment-card {
+ background: white;
+ border-radius: 20px;
+ padding: 35px;
+ max-width: 500px;
+ margin: 0 auto 30px;
+ box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+ border: 2px solid #e2e8f0;
+}
+.appointment-number {
+ background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+ color: white;
+ padding: 15px;
+ border-radius: 12px;
+ margin-bottom: 25px;
+}
+.appointment-number h3 {
+ font-size: 14px;
+ opacity: 0.9;
+ margin-bottom: 5px;
+}
+.appointment-number .number {
+ font-size: 28px;
+ font-weight: bold;
+ letter-spacing: 2px;
+}
+.qr-code {
+ width: 180px;
+ height: 180px;
+ background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+ border-radius: 16px;
+ margin: 0 auto 20px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border: 2px dashed #cbd5e0;
+ position: relative;
+ overflow: hidden;
+}
+.qr-pattern {
+ width: 140px;
+ height: 140px;
+ background-image: 
+ repeating-linear-gradient(0deg, #2c5282 0px, #2c5282 8px, transparent 8px, transparent 16px),
+ repeating-linear-gradient(90deg, #2c5282 0px, #2c5282 8px, transparent 8px, transparent 16px);
+ background-size: 16px 16px;
+ opacity: 0.3;
+}
+.qr-code i {
+ position: absolute;
+ font-size: 40px;
+ color: #2c5282;
+}
+.download-buttons {
+ display: flex;
+ gap: 15px;
+ justify-content: center;
+ flex-wrap: wrap;
+}
+.download-btn {
+ padding: 12px 24px;
+ border-radius: 10px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ border: 2px solid #e2e8f0;
+ background: white;
+ color: #4a5568;
+}
+.download-btn:hover {
+ border-color: #2c5282;
+ color: #2c5282;
+ transform: translateY(-2px);
+}
+/* Footer */
+.footer {
+ background: #1e3a5f;
+ color: white;
+ padding: 40px 0 20px;
+ margin-top: 60px;
+}
+.footer-content {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 0 20px;
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+ gap: 40px;
+}
+.footer-section h4 {
+ font-size: 16px;
+ margin-bottom: 15px;
+ color: #ffd700;
+}
+.footer-section p, .footer-section a {
+ color: #a0aec0;
+ font-size: 14px;
+ line-height: 1.8;
+ text-decoration: none;
+ display: block;
+ transition: color 0.3s;
+}
+.footer-section a:hover {
+ color: white;
+}
+.footer-bottom {
+ max-width: 1200px;
+ margin: 30px auto 0;
+ padding: 20px;
+ border-top: 1px solid rgba(255,255,255,0.1);
+ text-align: center;
+ color: #718096;
+ font-size: 13px;
+}
+/* Animations */
+.fade-in {
+ animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+ from { opacity: 0; transform: translateY(20px); }
+ to { opacity: 1; transform: translateY(0); }
+}
+/* Responsive */
+@media (max-width: 768px) {
+ .header-main {
+ flex-direction: column;
+ gap: 15px;
+ text-align: center;
+ }
+ .nav-content {
+ overflow-x: auto;
+ -webkit-overflow-scrolling: touch;
+ }
+ .form-grid {
+ grid-template-columns: 1fr;
+ }
+ .calendar-container {
+ grid-template-columns: 1fr;
+ }
+ .button-group {
+ flex-direction: column;
+ gap: 15px;
+ }
+ .btn {
+ width: 100%;
+ justify-content: center;
+ }
+ .type-grid {
+ grid-template-columns: 1fr;
+ }
+ .progress-steps {
+ display: none;
+ }
+}
+/* Loading */
+.loading-overlay {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: rgba(255,255,255,0.9);
+ display: none;
+ align-items: center;
+ justify-content: center;
+ z-index: 9999;
+ backdrop-filter: blur(5px);
+}
+.loading-overlay.active {
+ display: flex;
+}
+.spinner {
+ width: 60px;
+ height: 60px;
+ border: 4px solid #e2e8f0;
+ border-top-color: #2c5282;
+ border-radius: 50%;
+ animation: spin 1s linear infinite;
+}
+@keyframes spin {
+ to { transform: rotate(360deg); }
+}
+.hidden {
+ display: none !important;
+}
+/* Checkbox */
+.checkbox-group {
+ display: flex;
+ align-items: flex-start;
+ gap: 12px;
+ padding: 15px;
+ background: #f7fafc;
+ border-radius: 10px;
+ margin-top: 20px;
+ cursor: pointer;
+ border: 2px solid transparent;
+ transition: all 0.3s;
+}
+.checkbox-group:hover {
+ border-color: #2c5282;
+}
+.checkbox-group input[type="checkbox"] {
+ width: 20px;
+ height: 20px;
+ margin-top: 2px;
+ accent-color: #2c5282;
+}
+.checkbox-group label {
+ margin: 0;
+ cursor: pointer;
+ font-size: 14px;
+ line-height: 1.5;
+ color: #4a5568;
+}
+/* Alert */
+.alert {
+ padding: 15px 20px;
+ border-radius: 10px;
+ margin-bottom: 20px;
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ font-size: 14px;
+}
+.alert-error {
+ background: #fed7d7;
+ color: #c53030;
+ border: 1px solid #fc8181;
+}
+.alert-success {
+ background: #c6f6d5;
+ color: #22543d;
+ border: 1px solid #9ae6b4;
+}
+/* Tooltip */
+.tooltip {
+ position: relative;
+ display: inline-block;
+}
+.tooltip .tooltip-text {
+ visibility: hidden;
+ width: 200px;
+ background: #1e3a5f;
+ color: white;
+ text-align: center;
+ border-radius: 8px;
+ padding: 10px;
+ position: absolute;
+ z-index: 1;
+ bottom: 125%;
+ left: 50%;
+ margin-left: -100px;
+ opacity: 0;
+ transition: opacity 0.3s;
+ font-size: 12px;
+ font-weight: normal;
+}
+.tooltip:hover .tooltip-text {
+ visibility: visible;
+ opacity: 1;
+}
+app.js
+Aciklama: Musteri JavaScript - Form dogrulama, takvim, adim gecisleri
+Boyut: 16344 karakter | Satir: 458
+// Global Variables
+let currentStep = 1;
+let selectedType = null;
+let selectedDate = null;
+let selectedTime = null;
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+const formData = {
+ plaka: '',
+ ruhsatSeri: '',
+ sehir: '',
+ istasyon: '',
+ muayeneTuru: '',
+ tarih: '',
+ saat: '',
+ ad: '',
+ soyad: '',
+ tcNo: '',
+ telefon: '',
+ email: '',
+ aracTuru: '',
+ ucret: ''
+};
+const stations = {
+ istanbul: [
+ { value: 'pendik', name: 'Pendik Istasyonu', address: 'Sanayi Mah. Tersaneler Bulvari No:12, Pendik/Istanbul' },
+ { value: 'kadikoy', name: 'Kadikoy Istasyonu', address: 'Hasanpasa Mah. Albay Saim Bey Cad. No:5, Kadikoy/Istanbul' },
+ { value: 'bagcilar', name: 'Bagcilar Istasyonu', address: 'Mahmutbey Mah. Inonu Cad. No:89, Bagcilar/Istanbul' }
+ ],
+ ankara: [
+ { value: 'cankaya', name: 'Cankaya Istasyonu', address: 'Kizilay Mah. Ataturk Bulvari No:15, Cankaya/Ankara' },
+ { value: 'yenimahalle', name: 'Yenimahalle Istasyonu', address: 'Bati Sitesi Mah. Ankara Cad. No:42, Yenimahalle/Ankara' }
+ ],
+ izmir: [
+ { value: 'konak', name: 'Konak Istasyonu', address: 'Alsancak Mah. Kibris Sehitleri Cad. No:78, Konak/Izmir' },
+ { value: 'bornova', name: 'Bornova Istasyonu', address: 'Kazimdirik Mah. Ankara Cad. No:156, Bornova/Izmir' }
+ ],
+ bursa: [
+ { value: 'nilufer', name: 'Nilufer Istasyonu', address: 'Odunluk Mah. Izmir Yolu Cad. No:25, Nilufer/Bursa' }
+ ],
+ antalya: [
+ { value: 'muratpasa', name: 'Muratpasa Istasyonu', address: 'Caglayan Mah. Fener Cad. No:112, Muratpasa/Antalya' }
+ ],
+ adana: [
+ { value: 'seyhan', name: 'Seyhan Istasyonu', address: 'Resatbey Mah. Ziyapasa Bulvari No:45, Seyhan/Adana' }
+ ],
+ konya: [
+ { value: 'selcuklu', name: 'Selcuklu Istasyonu', address: 'Feritpasa Mah. Ankara Cad. No:88, Selcuklu/Konya' }
+ ],
+ gaziantep: [
+ { value: 'sahinbey', name: 'Sahinbey Istasyonu', address: 'Karatas Mah. Ipekyolu Cad. No:67, Sahinbey/Gaziantep' }
+ ]
+};
+const typePrices = {
+ periyodik: '1.872,42 TL',
+ tespit: '1.872,42 TL',
+ yenileme: '936,21 TL',
+ tadilat: '1.404,32 TL'
+};
+const typeNames = {
+ periyodik: 'Periyodik Muayene',
+ tespit: 'Tespit Muayenesi',
+ yenileme: 'Muayene Tekrari',
+ tadilat: 'Tadilat Muayenesi'
+};
+// City &amp; Station Selection
+document.getElementById('sehir').addEventListener('change', function() {
+ const sehir = this.value;
+ const istasyonSelect = document.getElementById('istasyon');
+ if (sehir &amp;&amp; stations[sehir]) {
+ istasyonSelect.innerHTML = '&lt;option value=""&gt;Istasyon Seciniz&lt;/option&gt;';
+ stations[sehir].forEach(station =&gt; {
+ istasyonSelect.innerHTML += '&lt;option value="' + station.value + '"&gt;' + station.name + '&lt;/option&gt;';
+ });
+ istasyonSelect.disabled = false;
+ } else {
+ istasyonSelect.innerHTML = '&lt;option value=""&gt;Once Sehir Seciniz&lt;/option&gt;';
+ istasyonSelect.disabled = true;
+ }
+});
+// Step Navigation
+function updateProgress(step) {
+ const progress = ((step - 1) / 4) * 100;
+ document.getElementById('progressLine').style.width = progress + '%';
+ for (let i = 1; i &lt;= 5; i++) {
+ const indicator = document.getElementById('step' + i + 'Indicator');
+ indicator.classList.remove('active', 'completed');
+ if (i &lt; step) {
+ indicator.classList.add('completed');
+ indicator.querySelector('.step-circle').innerHTML = '&lt;i class="fas fa-check"&gt;&lt;/i&gt;';
+ } else if (i === step) {
+ indicator.classList.add('active');
+ indicator.querySelector('.step-circle').innerHTML = i;
+ } else {
+ indicator.querySelector('.step-circle').innerHTML = i;
+ }
+ }
+}
+function showStep(step) {
+ for (let i = 1; i &lt;= 5; i++) {
+ document.getElementById('step' + i).classList.add('hidden');
+ }
+ document.getElementById('successPage').style.display = 'none';
+ if (step &lt;= 5) {
+ document.getElementById('step' + step).classList.remove('hidden');
+ }
+ currentStep = step;
+ updateProgress(step);
+}
+function nextStep(step) {
+ if (validateStep(step)) {
+ if (step === 3) {
+ const sehir = document.getElementById('sehir').value;
+ const istasyonVal = document.getElementById('istasyon').value;
+ if (sehir &amp;&amp; istasyonVal &amp;&amp; stations[sehir]) {
+ const station = stations[sehir].find(s =&gt; s.value === istasyonVal);
+ if (station) {
+ document.getElementById('stationName').textContent = 'TUVTRK ' + station.name;
+ document.getElementById('stationAddress').textContent = station.address;
+ }
+ }
+ generateCalendar();
+ }
+ if (step === 4) {
+ updateSummary();
+ }
+ showStep(step + 1);
+ }
+}
+function prevStep(step) {
+ showStep(step - 1);
+}
+// Validation
+function validateStep(step) {
+ let isValid = true;
+ if (step === 1) {
+ const plaka = document.getElementById('plaka').value.trim();
+ const ruhsat = document.getElementById('ruhsatSeri').value.trim();
+ const sehir = document.getElementById('sehir').value;
+ const istasyon = document.getElementById('istasyon').value;
+ if (!plaka) {
+ showAlert('Lutfen plaka numarasi giriniz.', 'error');
+ isValid = false;
+ } else if (!ruhsat) {
+ showAlert('Lutfen ruhsat seri numarasi giriniz.', 'error');
+ isValid = false;
+ } else if (!sehir) {
+ showAlert('Lutfen sehir seciniz.', 'error');
+ isValid = false;
+ } else if (!istasyon) {
+ showAlert('Lutfen istasyon seciniz.', 'error');
+ isValid = false;
+ }
+ if (isValid) {
+ formData.plaka = plaka.toUpperCase();
+ formData.ruhsatSeri = ruhsat.toUpperCase();
+ formData.sehir = sehir;
+ formData.istasyon = istasyon;
+ }
+ }
+ if (step === 2) {
+ if (!selectedType) {
+ showAlert('Lutfen muayene turu seciniz.', 'error');
+ isValid = false;
+ } else {
+ formData.muayeneTuru = selectedType;
+ formData.ucret = typePrices[selectedType];
+ }
+ }
+ if (step === 3) {
+ if (!selectedDate) {
+ showAlert('Lutfen tarih seciniz.', 'error');
+ isValid = false;
+ } else if (!selectedTime) {
+ showAlert('Lutfen saat seciniz.', 'error');
+ isValid = false;
+ } else {
+ formData.tarih = selectedDate;
+ formData.saat = selectedTime;
+ }
+ }
+ if (step === 4) {
+ const ad = document.getElementById('ad').value.trim();
+ const soyad = document.getElementById('soyad').value.trim();
+ const tcNo = document.getElementById('tcNo').value.trim();
+ const telefon = document.getElementById('telefon').value.trim();
+ const email = document.getElementById('email').value.trim();
+ const kvkk = document.getElementById('kvkk').checked;
+ if (!ad) {
+ showAlert('Lutfen adinizi giriniz.', 'error');
+ isValid = false;
+ } else if (!soyad) {
+ showAlert('Lutfen soyadinizi giriniz.', 'error');
+ isValid = false;
+ } else if (!tcNo || tcNo.length !== 11) {
+ showAlert('Lutfen gecerli T.C. Kimlik numarasi giriniz.', 'error');
+ isValid = false;
+ } else if (!telefon || telefon.length &lt; 10) {
+ showAlert('Lutfen gecerli telefon numarasi giriniz.', 'error');
+ isValid = false;
+ } else if (!email || !email.includes('@')) {
+ showAlert('Lutfen gecerli e-posta adresi giriniz.', 'error');
+ isValid = false;
+ } else if (!kvkk) {
+ showAlert('Devam etmek icin KVKK aydinlatma metnini onaylamaniz gerekmektedir.', 'error');
+ isValid = false;
+ }
+ if (isValid) {
+ formData.ad = ad;
+ formData.soyad = soyad;
+ formData.tcNo = tcNo;
+ formData.telefon = telefon;
+ formData.email = email;
+ formData.aracTuru = document.getElementById('aracTuru').value;
+ }
+ }
+ return isValid;
+}
+function showAlert(message, type) {
+ const existing = document.querySelector('.alert');
+ if (existing) existing.remove();
+ const alert = document.createElement('div');
+ alert.className = 'alert alert-' + type + ' fade-in';
+ alert.innerHTML = '&lt;i class="fas fa-' + (type === 'error' ? 'exclamation-circle' : 'check-circle') + '"&gt;&lt;/i&gt; ' + message;
+ const container = document.getElementById('step' + currentStep);
+ container.insertBefore(alert, container.querySelector('.form-header').nextSibling);
+ setTimeout(() =&gt; alert.remove(), 5000);
+}
+// Type Selection
+function selectType(element, type) {
+ document.querySelectorAll('.type-card').forEach(card =&gt; card.classList.remove('selected'));
+ element.classList.add('selected');
+ selectedType = type;
+}
+// Calendar
+function generateCalendar() {
+ const monthNames = ['Ocak', 'Subat', 'Mart', 'Nisan', 'Mayis', 'Haziran', 'Temmuz', 'Agustos', 'Eylul', 'Ekim', 'Kasim', 'Aralik'];
+ const dayNames = ['Pz', 'Pt', 'Sa', 'Ca', 'Pe', 'Cu', 'Ct'];
+ document.getElementById('currentMonth').textContent = monthNames[currentMonth] + ' ' + currentYear;
+ const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+ const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+ const today = new Date();
+ let html = '';
+ dayNames.forEach(day =&gt; {
+ html += '&lt;div class="calendar-day-header"&gt;' + day + '&lt;/div&gt;';
+ });
+ for (let i = 0; i &lt; firstDay; i++) {
+ html += '&lt;div class="calendar-day disabled"&gt;&lt;/div&gt;';
+ }
+ for (let day = 1; day &lt;= daysInMonth; day++) {
+ const date = new Date(currentYear, currentMonth, day);
+ const isToday = date.toDateString() === today.toDateString();
+ const isPast = date &lt; today &amp;&amp; !isToday;
+ const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+ const isDisabled = isPast || isWeekend;
+ let classes = 'calendar-day';
+ if (isDisabled) classes += ' disabled';
+ if (isToday) classes += ' today';
+ const dateStr = day + '.' + (currentMonth + 1) + '.' + currentYear;
+ if (selectedDate === dateStr) classes += ' selected';
+ if (isDisabled) {
+ html += '&lt;div class="' + classes + '"&gt;' + day + '&lt;/div&gt;';
+ } else {
+ html += '&lt;div class="' + classes + '" onclick="selectDate('' + dateStr + '', this)"&gt;' + day + '&lt;/div&gt;';
+ }
+ }
+ document.getElementById('calendarGrid').innerHTML = html;
+}
+function changeMonth(delta) {
+ currentMonth += delta;
+ if (currentMonth &gt; 11) {
+ currentMonth = 0;
+ currentYear++;
+ } else if (currentMonth &lt; 0) {
+ currentMonth = 11;
+ currentYear--;
+ }
+ generateCalendar();
+}
+function selectDate(dateStr, element) {
+ document.querySelectorAll('.calendar-day').forEach(el =&gt; el.classList.remove('selected'));
+ element.classList.add('selected');
+ selectedDate = dateStr;
+ selectedTime = null;
+ document.getElementById('selectedDateText').textContent = 'Secilen Tarih: ' + dateStr;
+ generateTimeSlots();
+}
+function generateTimeSlots() {
+ const slots = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30'];
+ const disabledSlots = ['09:00', '10:30', '14:00', '16:00'];
+ let html = '';
+ slots.forEach(time =&gt; {
+ const isDisabled = disabledSlots.includes(time);
+ let classes = 'time-slot';
+ if (isDisabled) classes += ' disabled';
+ if (selectedTime === time) classes += ' selected';
+ if (isDisabled) {
+ html += '&lt;div class="' + classes + '"&gt;' + time + '&lt;/div&gt;';
+ } else {
+ html += '&lt;div class="' + classes + '" onclick="selectTime('' + time + '', this)"&gt;' + time + '&lt;/div&gt;';
+ }
+ });
+ document.getElementById('timeSlots').innerHTML = html;
+}
+function selectTime(time, element) {
+ document.querySelectorAll('.time-slot').forEach(el =&gt; el.classList.remove('selected'));
+ element.classList.add('selected');
+ selectedTime = time;
+}
+// Summary
+function updateSummary() {
+ document.getElementById('summaryPlaka').textContent = formData.plaka;
+ document.getElementById('summaryType').textContent = typeNames[formData.muayeneTuru] || '-';
+ document.getElementById('summaryDate').textContent = formData.tarih || '-';
+ document.getElementById('summaryTime').textContent = formData.saat || '-';
+ const sehir = document.getElementById('sehir').value;
+ const istasyonVal = document.getElementById('istasyon').value;
+ let stationName = '-';
+ if (sehir &amp;&amp; istasyonVal &amp;&amp; stations[sehir]) {
+ const station = stations[sehir].find(s =&gt; s.value === istasyonVal);
+ if (station) stationName = station.name;
+ }
+ document.getElementById('summaryStation').textContent = stationName;
+ document.getElementById('summaryName').textContent = (formData.ad + ' ' + formData.soyad) || '-';
+ document.getElementById('summaryPhone').textContent = formData.telefon || '-';
+ document.getElementById('summaryPrice').textContent = formData.ucret || '-';
+}
+// Confirm Appointment
+function confirmAppointment() {
+ const onay = document.getElementById('onay').checked;
+ if (!onay) {
+ showAlert('Devam etmek icin bilgilerin dogrulugunu onaylamaniz gerekmektedir.', 'error');
+ return;
+ }
+ document.getElementById('loadingOverlay').classList.add('active');
+ setTimeout(() =&gt; {
+ document.getElementById('loadingOverlay').classList.remove('active');
+ const randomNum = Math.floor(Math.random() * 900000) + 100000;
+ document.getElementById('appointmentNo').textContent = 'R-2026-' + randomNum;
+ document.getElementById('successPlaka').textContent = formData.plaka;
+ document.getElementById('successDateTime').textContent = formData.tarih + ' / ' + formData.saat;
+ const sehir = document.getElementById('sehir').value;
+ const istasyonVal = document.getElementById('istasyon').value;
+ let stationName = '-';
+ if (sehir &amp;&amp; istasyonVal &amp;&amp; stations[sehir]) {
+ const station = stations[sehir].find(s =&gt; s.value === istasyonVal);
+ if (station) stationName = station.name;
+ }
+ document.getElementById('successStation').textContent = stationName;
+ for (let i = 1; i &lt;= 5; i++) {
+ document.getElementById('step' + i).classList.add('hidden');
+ }
+ document.getElementById('successPage').style.display = 'block';
+ document.getElementById('successPage').classList.remove('hidden');
+ document.getElementById('progressLine').style.width = '100%';
+ for (let i = 1; i &lt;= 5; i++) {
+ const indicator = document.getElementById('step' + i + 'Indicator');
+ indicator.classList.remove('active');
+ indicator.classList.add('completed');
+ indicator.querySelector('.step-circle').innerHTML = '&lt;i class="fas fa-check"&gt;&lt;/i&gt;';
+ }
+ }, 2000);
+}
+// Download functions
+function downloadPDF() {
+ alert('PDF indiriliyor...');
+}
+function sendEmail() {
+ alert('Randevu bilgileri e-posta adresinize gonderildi.');
+}
+function sendSMS() {
+ alert('Randevu bilgileri SMS olarak gonderildi.');
+}
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+ document.getElementById('plaka').addEventListener('input', function() {
+ this.value = this.value.toUpperCase().replace(/[^A-Z0-9\s]/g, '');
+ });
+ document.getElementById('ruhsatSeri').addEventListener('input', function() {
+ this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+ });
+ document.getElementById('tcNo').addEventListener('input', function() {
+ this.value = this.value.replace(/\D/g, '').slice(0, 11);
+ });
+ document.getElementById('telefon').addEventListener('input', function() {
+ this.value = this.value.replace(/\D/g, '').slice(0, 11);
+ });
+});
+admin.html
+Aciklama: Admin Paneli - Giris ekrani, dashboard, randevu/istasyon/kullanici yonetimi
+Boyut: 23497 karakter | Satir: 524
+&lt;!DOCTYPE html&gt;
+&lt;html lang="tr"&gt;
+&lt;head&gt;
+ &lt;meta charset="UTF-8"&gt;
+ &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+ &lt;title&gt;TÜVTÜRK - Admin Panel&lt;/title&gt;
+ &lt;link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"&gt;
+ &lt;link rel="stylesheet" href="admin-style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+ &lt;!-- Login Screen --&gt;
+ &lt;div class="login-screen" id="loginScreen"&gt;
+ &lt;div class="login-box"&gt;
+ &lt;div class="login-logo"&gt;
+ &lt;div class="logo-icon"&gt;&lt;i class="fas fa-car"&gt;&lt;/i&gt;&lt;/div&gt;
+ &lt;h1&gt;TÜVTÜRK&lt;/h1&gt;
+ &lt;p&gt;Admin Panel&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;form id="loginForm"&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;&lt;i class="fas fa-user"&gt;&lt;/i&gt; Kullanıcı Adı&lt;/label&gt;
+ &lt;input type="text" id="username" value="admin" required&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;&lt;i class="fas fa-lock"&gt;&lt;/i&gt; Şifre&lt;/label&gt;
+ &lt;input type="password" id="password" value="admin123" required&gt;
+ &lt;/div&gt;
+ &lt;button type="submit" class="btn-login"&gt;
+ &lt;i class="fas fa-sign-in-alt"&gt;&lt;/i&gt; Giriş Yap
+ &lt;/button&gt;
+ &lt;/form&gt;
+ &lt;p class="login-hint"&gt;Demo: admin / admin123&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Admin Dashboard --&gt;
+ &lt;div class="admin-wrapper hidden" id="adminWrapper"&gt;
+ &lt;!-- Sidebar --&gt;
+ &lt;aside class="sidebar"&gt;
+ &lt;div class="sidebar-header"&gt;
+ &lt;div class="logo-icon"&gt;&lt;i class="fas fa-car"&gt;&lt;/i&gt;&lt;/div&gt;
+ &lt;h2&gt;TÜVTÜRK&lt;/h2&gt;
+ &lt;/div&gt;
+ &lt;nav class="sidebar-nav"&gt;
+ &lt;a href="#" class="nav-item active" data-page="dashboard"&gt;
+ &lt;i class="fas fa-chart-line"&gt;&lt;/i&gt; Dashboard
+ &lt;/a&gt;
+ &lt;a href="#" class="nav-item" data-page="appointments"&gt;
+ &lt;i class="fas fa-calendar-check"&gt;&lt;/i&gt; Randevular
+ &lt;span class="badge" id="badgeAppointments"&gt;0&lt;/span&gt;
+ &lt;/a&gt;
+ &lt;a href="#" class="nav-item" data-page="stations"&gt;
+ &lt;i class="fas fa-building"&gt;&lt;/i&gt; İstasyonlar
+ &lt;/a&gt;
+ &lt;a href="#" class="nav-item" data-page="users"&gt;
+ &lt;i class="fas fa-users"&gt;&lt;/i&gt; Kullanıcılar
+ &lt;/a&gt;
+ &lt;a href="#" class="nav-item" data-page="reports"&gt;
+ &lt;i class="fas fa-file-alt"&gt;&lt;/i&gt; Raporlar
+ &lt;/a&gt;
+ &lt;a href="#" class="nav-item" data-page="settings"&gt;
+ &lt;i class="fas fa-cog"&gt;&lt;/i&gt; Ayarlar
+ &lt;/a&gt;
+ &lt;/nav&gt;
+ &lt;div class="sidebar-footer"&gt;
+ &lt;a href="#" class="nav-item" onclick="logout()"&gt;
+ &lt;i class="fas fa-sign-out-alt"&gt;&lt;/i&gt; Çıkış Yap
+ &lt;/a&gt;
+ &lt;/div&gt;
+ &lt;/aside&gt;
+ &lt;!-- Main Content --&gt;
+ &lt;main class="main-content"&gt;
+ &lt;!-- Top Bar --&gt;
+ &lt;header class="top-bar"&gt;
+ &lt;button class="menu-toggle" onclick="toggleSidebar()"&gt;
+ &lt;i class="fas fa-bars"&gt;&lt;/i&gt;
+ &lt;/button&gt;
+ &lt;div class="top-bar-right"&gt;
+ &lt;div class="search-box"&gt;
+ &lt;i class="fas fa-search"&gt;&lt;/i&gt;
+ &lt;input type="text" placeholder="Ara..."&gt;
+ &lt;/div&gt;
+ &lt;div class="notifications"&gt;
+ &lt;i class="fas fa-bell"&gt;&lt;/i&gt;
+ &lt;span class="notif-badge"&gt;3&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="user-menu"&gt;
+ &lt;img src="https://ui-avatars.com/api/?name=Admin+User&amp;background=2c5282&amp;color=fff" alt="Admin"&gt;
+ &lt;span&gt;Admin&lt;/span&gt;
+ &lt;i class="fas fa-chevron-down"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/header&gt;
+ &lt;!-- Dashboard Page --&gt;
+ &lt;div class="page active" id="page-dashboard"&gt;
+ &lt;div class="page-header"&gt;
+ &lt;h1&gt;&lt;i class="fas fa-chart-line"&gt;&lt;/i&gt; Dashboard&lt;/h1&gt;
+ &lt;p&gt;Genel bakış ve istatistikler&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="stats-grid"&gt;
+ &lt;div class="stat-card blue"&gt;
+ &lt;div class="stat-icon"&gt;&lt;i class="fas fa-calendar-check"&gt;&lt;/i&gt;&lt;/div&gt;
+ &lt;div class="stat-info"&gt;
+ &lt;h3 id="statTotal"&gt;0&lt;/h3&gt;
+ &lt;p&gt;Toplam Randevu&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="stat-card green"&gt;
+ &lt;div class="stat-icon"&gt;&lt;i class="fas fa-clock"&gt;&lt;/i&gt;&lt;/div&gt;
+ &lt;div class="stat-info"&gt;
+ &lt;h3 id="statToday"&gt;0&lt;/h3&gt;
+ &lt;p&gt;Bugünkü Randevu&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="stat-card orange"&gt;
+ &lt;div class="stat-icon"&gt;&lt;i class="fas fa-money-bill-wave"&gt;&lt;/i&gt;&lt;/div&gt;
+ &lt;div class="stat-info"&gt;
+ &lt;h3 id="statRevenue"&gt;0 TL&lt;/h3&gt;
+ &lt;p&gt;Toplam Gelir&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="stat-card purple"&gt;
+ &lt;div class="stat-icon"&gt;&lt;i class="fas fa-building"&gt;&lt;/i&gt;&lt;/div&gt;
+ &lt;div class="stat-info"&gt;
+ &lt;h3 id="statStations"&gt;15&lt;/h3&gt;
+ &lt;p&gt;Aktif İstasyon&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="dashboard-grid"&gt;
+ &lt;div class="dashboard-card"&gt;
+ &lt;div class="card-header"&gt;
+ &lt;h3&gt;&lt;i class="fas fa-chart-bar"&gt;&lt;/i&gt; Haftalık Randevu Grafiği&lt;/h3&gt;
+ &lt;/div&gt;
+ &lt;div class="chart-container"&gt;
+ &lt;canvas id="weeklyChart"&gt;&lt;/canvas&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="dashboard-card"&gt;
+ &lt;div class="card-header"&gt;
+ &lt;h3&gt;&lt;i class="fas fa-chart-pie"&gt;&lt;/i&gt; Muayene Türü Dağılımı&lt;/h3&gt;
+ &lt;/div&gt;
+ &lt;div class="chart-container"&gt;
+ &lt;canvas id="typeChart"&gt;&lt;/canvas&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="dashboard-card full-width"&gt;
+ &lt;div class="card-header"&gt;
+ &lt;h3&gt;&lt;i class="fas fa-list"&gt;&lt;/i&gt; Son Randevular&lt;/h3&gt;
+ &lt;a href="#" class="btn-small" onclick="showPage('appointments')"&gt;Tümünü Gör&lt;/a&gt;
+ &lt;/div&gt;
+ &lt;div class="table-responsive"&gt;
+ &lt;table class="data-table"&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Randevu No&lt;/th&gt;
+ &lt;th&gt;Plaka&lt;/th&gt;
+ &lt;th&gt;Ad Soyad&lt;/th&gt;
+ &lt;th&gt;Tarih&lt;/th&gt;
+ &lt;th&gt;Saat&lt;/th&gt;
+ &lt;th&gt;İstasyon&lt;/th&gt;
+ &lt;th&gt;Tür&lt;/th&gt;
+ &lt;th&gt;Ücret&lt;/th&gt;
+ &lt;th&gt;Durum&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody id="recentAppointmentsTable"&gt;&lt;/tbody&gt;
+ &lt;/table&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Appointments Page --&gt;
+ &lt;div class="page" id="page-appointments"&gt;
+ &lt;div class="page-header"&gt;
+ &lt;h1&gt;&lt;i class="fas fa-calendar-check"&gt;&lt;/i&gt; Randevular&lt;/h1&gt;
+ &lt;p&gt;Tüm randevuları yönetin&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="filter-bar"&gt;
+ &lt;div class="filter-group"&gt;
+ &lt;input type="text" id="searchAppointments" placeholder="Plaka, isim veya telefon ara..."&gt;
+ &lt;i class="fas fa-search"&gt;&lt;/i&gt;
+ &lt;/div&gt;
+ &lt;div class="filter-group"&gt;
+ &lt;select id="filterStatus"&gt;
+ &lt;option value=""&gt;Tüm Durumlar&lt;/option&gt;
+ &lt;option value="active"&gt;Aktif&lt;/option&gt;
+ &lt;option value="completed"&gt;Tamamlandı&lt;/option&gt;
+ &lt;option value="cancelled"&gt;İptal&lt;/option&gt;
+ &lt;/select&gt;
+ &lt;/div&gt;
+ &lt;div class="filter-group"&gt;
+ &lt;select id="filterStation"&gt;
+ &lt;option value=""&gt;Tüm İstasyonlar&lt;/option&gt;
+ &lt;/select&gt;
+ &lt;/div&gt;
+ &lt;div class="filter-group"&gt;
+ &lt;input type="date" id="filterDate"&gt;
+ &lt;/div&gt;
+ &lt;button class="btn-primary" onclick="exportAppointments()"&gt;
+ &lt;i class="fas fa-download"&gt;&lt;/i&gt; Dışa Aktar
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;div class="table-responsive"&gt;
+ &lt;table class="data-table"&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;input type="checkbox" id="selectAll"&gt;&lt;/th&gt;
+ &lt;th&gt;Randevu No&lt;/th&gt;
+ &lt;th&gt;Plaka&lt;/th&gt;
+ &lt;th&gt;Ad Soyad&lt;/th&gt;
+ &lt;th&gt;Telefon&lt;/th&gt;
+ &lt;th&gt;Tarih&lt;/th&gt;
+ &lt;th&gt;Saat&lt;/th&gt;
+ &lt;th&gt;İstasyon&lt;/th&gt;
+ &lt;th&gt;Tür&lt;/th&gt;
+ &lt;th&gt;Ücret&lt;/th&gt;
+ &lt;th&gt;Durum&lt;/th&gt;
+ &lt;th&gt;İşlemler&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody id="allAppointmentsTable"&gt;&lt;/tbody&gt;
+ &lt;/table&gt;
+ &lt;/div&gt;
+ &lt;div class="pagination"&gt;
+ &lt;button onclick="changePage(-1)"&gt;&lt;i class="fas fa-chevron-left"&gt;&lt;/i&gt;&lt;/button&gt;
+ &lt;span id="pageInfo"&gt;Sayfa 1 / 1&lt;/span&gt;
+ &lt;button onclick="changePage(1)"&gt;&lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Stations Page --&gt;
+ &lt;div class="page" id="page-stations"&gt;
+ &lt;div class="page-header"&gt;
+ &lt;h1&gt;&lt;i class="fas fa-building"&gt;&lt;/i&gt; İstasyonlar&lt;/h1&gt;
+ &lt;p&gt;Muayene istasyonlarını yönetin&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="action-bar"&gt;
+ &lt;button class="btn-success" onclick="openStationModal()"&gt;
+ &lt;i class="fas fa-plus"&gt;&lt;/i&gt; Yeni İstasyon Ekle
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;div class="stations-grid" id="stationsGrid"&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Users Page --&gt;
+ &lt;div class="page" id="page-users"&gt;
+ &lt;div class="page-header"&gt;
+ &lt;h1&gt;&lt;i class="fas fa-users"&gt;&lt;/i&gt; Kullanıcılar&lt;/h1&gt;
+ &lt;p&gt;Sistem kullanıcılarını yönetin&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="action-bar"&gt;
+ &lt;button class="btn-success" onclick="openUserModal()"&gt;
+ &lt;i class="fas fa-plus"&gt;&lt;/i&gt; Yeni Kullanıcı Ekle
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;div class="table-responsive"&gt;
+ &lt;table class="data-table"&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;ID&lt;/th&gt;
+ &lt;th&gt;Ad Soyad&lt;/th&gt;
+ &lt;th&gt;E-posta&lt;/th&gt;
+ &lt;th&gt;Telefon&lt;/th&gt;
+ &lt;th&gt;Rol&lt;/th&gt;
+ &lt;th&gt;Durum&lt;/th&gt;
+ &lt;th&gt;Kayıt Tarihi&lt;/th&gt;
+ &lt;th&gt;İşlemler&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody id="usersTable"&gt;&lt;/tbody&gt;
+ &lt;/table&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Reports Page --&gt;
+ &lt;div class="page" id="page-reports"&gt;
+ &lt;div class="page-header"&gt;
+ &lt;h1&gt;&lt;i class="fas fa-file-alt"&gt;&lt;/i&gt; Raporlar&lt;/h1&gt;
+ &lt;p&gt;Detaylı raporlar ve analizler&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="report-cards"&gt;
+ &lt;div class="report-card" onclick="generateReport('daily')"&gt;
+ &lt;i class="fas fa-calendar-day"&gt;&lt;/i&gt;
+ &lt;h3&gt;Günlük Rapor&lt;/h3&gt;
+ &lt;p&gt;Bugünkü randevu ve gelir özeti&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="report-card" onclick="generateReport('weekly')"&gt;
+ &lt;i class="fas fa-calendar-week"&gt;&lt;/i&gt;
+ &lt;h3&gt;Haftalık Rapor&lt;/h3&gt;
+ &lt;p&gt;Haftalık performans analizi&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="report-card" onclick="generateReport('monthly')"&gt;
+ &lt;i class="fas fa-calendar-alt"&gt;&lt;/i&gt;
+ &lt;h3&gt;Aylık Rapor&lt;/h3&gt;
+ &lt;p&gt;Aylık detaylı istatistikler&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="report-card" onclick="generateReport('station')"&gt;
+ &lt;i class="fas fa-building"&gt;&lt;/i&gt;
+ &lt;h3&gt;İstasyon Raporu&lt;/h3&gt;
+ &lt;p&gt;İstasyon bazlı performans&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="dashboard-card" id="reportResult" style="display:none;"&gt;
+ &lt;div class="card-header"&gt;
+ &lt;h3&gt;&lt;i class="fas fa-file-alt"&gt;&lt;/i&gt; Rapor Sonucu&lt;/h3&gt;
+ &lt;button class="btn-small" onclick="downloadReport()"&gt;
+ &lt;i class="fas fa-download"&gt;&lt;/i&gt; İndir
+ &lt;/button&gt;
+ &lt;/div&gt;
+ &lt;div id="reportContent"&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Settings Page --&gt;
+ &lt;div class="page" id="page-settings"&gt;
+ &lt;div class="page-header"&gt;
+ &lt;h1&gt;&lt;i class="fas fa-cog"&gt;&lt;/i&gt; Ayarlar&lt;/h1&gt;
+ &lt;p&gt;Sistem ayarlarını yapılandırın&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="settings-grid"&gt;
+ &lt;div class="settings-card"&gt;
+ &lt;h3&gt;&lt;i class="fas fa-money-bill-wave"&gt;&lt;/i&gt; Fiyat Ayarları&lt;/h3&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Periyodik Muayene&lt;/label&gt;
+ &lt;input type="text" id="pricePeriyodik" value="1.872,42 TL"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Tespit Muayenesi&lt;/label&gt;
+ &lt;input type="text" id="priceTespit" value="1.872,42 TL"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Muayene Tekrarı&lt;/label&gt;
+ &lt;input type="text" id="priceYenileme" value="936,21 TL"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Tadilat Muayenesi&lt;/label&gt;
+ &lt;input type="text" id="priceTadilat" value="1.404,32 TL"&gt;
+ &lt;/div&gt;
+ &lt;button class="btn-primary" onclick="savePrices()"&gt;Kaydet&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;div class="settings-card"&gt;
+ &lt;h3&gt;&lt;i class="fas fa-clock"&gt;&lt;/i&gt; Çalışma Saatleri&lt;/h3&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Başlangıç Saati&lt;/label&gt;
+ &lt;input type="time" id="workStart" value="08:00"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Bitiş Saati&lt;/label&gt;
+ &lt;input type="time" id="workEnd" value="17:00"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Randevu Aralığı (dk)&lt;/label&gt;
+ &lt;input type="number" id="slotInterval" value="30"&gt;
+ &lt;/div&gt;
+ &lt;button class="btn-primary" onclick="saveWorkHours()"&gt;Kaydet&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;div class="settings-card"&gt;
+ &lt;h3&gt;&lt;i class="fas fa-bell"&gt;&lt;/i&gt; Bildirim Ayarları&lt;/h3&gt;
+ &lt;div class="checkbox-group"&gt;
+ &lt;input type="checkbox" id="notifEmail" checked&gt;
+ &lt;label&gt;E-posta Bildirimleri&lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="checkbox-group"&gt;
+ &lt;input type="checkbox" id="notifSMS" checked&gt;
+ &lt;label&gt;SMS Bildirimleri&lt;/label&gt;
+ &lt;/div&gt;
+ &lt;div class="checkbox-group"&gt;
+ &lt;input type="checkbox" id="notifReminder" checked&gt;
+ &lt;label&gt;Hatırlatma Bildirimleri&lt;/label&gt;
+ &lt;/div&gt;
+ &lt;button class="btn-primary" onclick="saveNotifications()"&gt;Kaydet&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;div class="settings-card"&gt;
+ &lt;h3&gt;&lt;i class="fas fa-shield-alt"&gt;&lt;/i&gt; Güvenlik&lt;/h3&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Mevcut Şifre&lt;/label&gt;
+ &lt;input type="password" placeholder="••••••••"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Yeni Şifre&lt;/label&gt;
+ &lt;input type="password" placeholder="Yeni şifre"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Şifre Tekrar&lt;/label&gt;
+ &lt;input type="password" placeholder="Şifreyi tekrar girin"&gt;
+ &lt;/div&gt;
+ &lt;button class="btn-primary" onclick="changePassword()"&gt;Şifreyi Değiştir&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/main&gt;
+ &lt;/div&gt;
+ &lt;!-- Modal: Edit Appointment --&gt;
+ &lt;div class="modal-overlay" id="appointmentModal"&gt;
+ &lt;div class="modal"&gt;
+ &lt;div class="modal-header"&gt;
+ &lt;h3&gt;&lt;i class="fas fa-edit"&gt;&lt;/i&gt; Randevu Düzenle&lt;/h3&gt;
+ &lt;button class="modal-close" onclick="closeModal('appointmentModal')"&gt;&amp;times;&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;div class="modal-body"&gt;
+ &lt;div class="form-grid"&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Plaka&lt;/label&gt;
+ &lt;input type="text" id="editPlaka"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Ad Soyad&lt;/label&gt;
+ &lt;input type="text" id="editName"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Telefon&lt;/label&gt;
+ &lt;input type="text" id="editPhone"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Tarih&lt;/label&gt;
+ &lt;input type="date" id="editDate"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Saat&lt;/label&gt;
+ &lt;input type="time" id="editTime"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Durum&lt;/label&gt;
+ &lt;select id="editStatus"&gt;
+ &lt;option value="active"&gt;Aktif&lt;/option&gt;
+ &lt;option value="completed"&gt;Tamamlandı&lt;/option&gt;
+ &lt;option value="cancelled"&gt;İptal&lt;/option&gt;
+ &lt;/select&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="modal-footer"&gt;
+ &lt;button class="btn-secondary" onclick="closeModal('appointmentModal')"&gt;İptal&lt;/button&gt;
+ &lt;button class="btn-primary" onclick="saveAppointment()"&gt;Kaydet&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;!-- Modal: Station --&gt;
+ &lt;div class="modal-overlay" id="stationModal"&gt;
+ &lt;div class="modal"&gt;
+ &lt;div class="modal-header"&gt;
+ &lt;h3&gt;&lt;i class="fas fa-building"&gt;&lt;/i&gt; İstasyon Ekle/Düzenle&lt;/h3&gt;
+ &lt;button class="modal-close" onclick="closeModal('stationModal')"&gt;&amp;times;&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;div class="modal-body"&gt;
+ &lt;div class="form-grid"&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;İstasyon Adı&lt;/label&gt;
+ &lt;input type="text" id="stationNameInput"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Şehir&lt;/label&gt;
+ &lt;select id="stationCityInput"&gt;
+ &lt;option&gt;İstanbul&lt;/option&gt;
+ &lt;option&gt;Ankara&lt;/option&gt;
+ &lt;option&gt;İzmir&lt;/option&gt;
+ &lt;option&gt;Bursa&lt;/option&gt;
+ &lt;option&gt;Antalya&lt;/option&gt;
+ &lt;option&gt;Adana&lt;/option&gt;
+ &lt;option&gt;Konya&lt;/option&gt;
+ &lt;option&gt;Gaziantep&lt;/option&gt;
+ &lt;/select&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group full-width"&gt;
+ &lt;label&gt;Adres&lt;/label&gt;
+ &lt;textarea id="stationAddressInput" rows="3"&gt;&lt;/textarea&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Telefon&lt;/label&gt;
+ &lt;input type="text" id="stationPhoneInput"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Kapasite (Araç/Gün)&lt;/label&gt;
+ &lt;input type="number" id="stationCapacityInput" value="50"&gt;
+ &lt;/div&gt;
+ &lt;div class="form-group"&gt;
+ &lt;label&gt;Durum&lt;/label&gt;
+ &lt;select id="stationStatusInput"&gt;
+ &lt;option value="active"&gt;Aktif&lt;/option&gt;
+ &lt;option value="inactive"&gt;Pasif&lt;/option&gt;
+ &lt;option value="maintenance"&gt;Bakımda&lt;/option&gt;
+ &lt;/select&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="modal-footer"&gt;
+ &lt;button class="btn-secondary" onclick="closeModal('stationModal')"&gt;İptal&lt;/button&gt;
+ &lt;button class="btn-primary" onclick="saveStation()"&gt;Kaydet&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;
+ &lt;script src="admin-app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+admin-style.css
+Aciklama: Admin Stilleri - Sidebar, tablolar, modal, grafik container
+Boyut: 17499 karakter | Satir: 993
+/* Admin Panel Styles */
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+body {
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ background: #f0f2f5;
+ color: #333;
+}
+/* Login Screen */
+.login-screen {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ z-index: 9999;
+}
+.login-box {
+ background: white;
+ border-radius: 20px;
+ padding: 50px;
+ width: 100%;
+ max-width: 420px;
+ box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+ animation: slideUp 0.5s ease;
+}
+@keyframes slideUp {
+ from { opacity: 0; transform: translateY(30px); }
+ to { opacity: 1; transform: translateY(0); }
+}
+.login-logo {
+ text-align: center;
+ margin-bottom: 35px;
+}
+.login-logo .logo-icon {
+ width: 70px;
+ height: 70px;
+ background: linear-gradient(135deg, #2c5282 0%, #1e3a5f 100%);
+ border-radius: 16px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 0 auto 15px;
+ color: white;
+ font-size: 32px;
+}
+.login-logo h1 {
+ color: #1e3a5f;
+ font-size: 28px;
+ letter-spacing: 2px;
+}
+.login-logo p {
+ color: #718096;
+ font-size: 16px;
+ margin-top: 5px;
+}
+.login-box .form-group {
+ margin-bottom: 20px;
+}
+.login-box label {
+ display: block;
+ margin-bottom: 8px;
+ font-weight: 600;
+ color: #4a5568;
+ font-size: 14px;
+}
+.login-box label i {
+ margin-right: 8px;
+ color: #2c5282;
+}
+.login-box input {
+ width: 100%;
+ padding: 14px 16px;
+ border: 2px solid #e2e8f0;
+ border-radius: 10px;
+ font-size: 15px;
+ transition: all 0.3s;
+ background: #fafbfc;
+}
+.login-box input:focus {
+ outline: none;
+ border-color: #2c5282;
+ background: white;
+ box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.1);
+}
+.btn-login {
+ width: 100%;
+ padding: 14px;
+ background: linear-gradient(135deg, #2c5282 0%, #1e3a5f 100%);
+ color: white;
+ border: none;
+ border-radius: 10px;
+ font-size: 16px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 10px;
+}
+.btn-login:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 6px 20px rgba(44, 82, 130, 0.4);
+}
+.login-hint {
+ text-align: center;
+ margin-top: 20px;
+ color: #a0aec0;
+ font-size: 13px;
+}
+/* Admin Wrapper */
+.admin-wrapper {
+ display: flex;
+ min-height: 100vh;
+}
+.admin-wrapper.hidden {
+ display: none;
+}
+/* Sidebar */
+.sidebar {
+ width: 260px;
+ background: #1e3a5f;
+ color: white;
+ display: flex;
+ flex-direction: column;
+ position: fixed;
+ height: 100vh;
+ z-index: 100;
+ transition: transform 0.3s;
+}
+.sidebar-header {
+ padding: 25px 20px;
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar-header .logo-icon {
+ width: 40px;
+ height: 40px;
+ background: white;
+ border-radius: 10px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: #1e3a5f;
+ font-size: 18px;
+}
+.sidebar-header h2 {
+ font-size: 20px;
+ letter-spacing: 1px;
+}
+.sidebar-nav {
+ flex: 1;
+ padding: 20px 0;
+ overflow-y: auto;
+}
+.sidebar-nav .nav-item {
+ display: flex;
+ align-items: center;
+ padding: 14px 25px;
+ color: #a0aec0;
+ text-decoration: none;
+ font-size: 14px;
+ font-weight: 600;
+ transition: all 0.3s;
+ position: relative;
+}
+.sidebar-nav .nav-item i {
+ width: 24px;
+ margin-right: 12px;
+ font-size: 16px;
+}
+.sidebar-nav .nav-item:hover {
+ color: white;
+ background: rgba(255,255,255,0.05);
+}
+.sidebar-nav .nav-item.active {
+ color: white;
+ background: rgba(255,255,255,0.1);
+ border-left: 3px solid #ffd700;
+}
+.badge {
+ margin-left: auto;
+ background: #e53e3e;
+ color: white;
+ font-size: 11px;
+ padding: 2px 8px;
+ border-radius: 10px;
+ font-weight: bold;
+}
+.sidebar-footer {
+ padding: 15px 0;
+ border-top: 1px solid rgba(255,255,255,0.1);
+}
+/* Main Content */
+.main-content {
+ flex: 1;
+ margin-left: 260px;
+ min-height: 100vh;
+}
+/* Top Bar */
+.top-bar {
+ background: white;
+ padding: 15px 30px;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+ position: sticky;
+ top: 0;
+ z-index: 50;
+}
+.menu-toggle {
+ background: none;
+ border: none;
+ font-size: 20px;
+ color: #4a5568;
+ cursor: pointer;
+ padding: 8px;
+ border-radius: 8px;
+ transition: all 0.2s;
+}
+.menu-toggle:hover {
+ background: #f0f2f5;
+}
+.top-bar-right {
+ display: flex;
+ align-items: center;
+ gap: 20px;
+}
+.search-box {
+ position: relative;
+}
+.search-box i {
+ position: absolute;
+ left: 14px;
+ top: 50%;
+ transform: translateY(-50%);
+ color: #a0aec0;
+}
+.search-box input {
+ padding: 10px 14px 10px 40px;
+ border: 2px solid #e2e8f0;
+ border-radius: 10px;
+ width: 250px;
+ font-size: 14px;
+ transition: all 0.3s;
+}
+.search-box input:focus {
+ outline: none;
+ border-color: #2c5282;
+}
+.notifications {
+ position: relative;
+ cursor: pointer;
+ font-size: 20px;
+ color: #4a5568;
+ padding: 8px;
+}
+.notif-badge {
+ position: absolute;
+ top: 2px;
+ right: 2px;
+ width: 18px;
+ height: 18px;
+ background: #e53e3e;
+ color: white;
+ border-radius: 50%;
+ font-size: 10px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-weight: bold;
+}
+.user-menu {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ cursor: pointer;
+ padding: 6px 12px;
+ border-radius: 10px;
+ transition: all 0.2s;
+}
+.user-menu:hover {
+ background: #f0f2f5;
+}
+.user-menu img {
+ width: 36px;
+ height: 36px;
+ border-radius: 50%;
+}
+.user-menu span {
+ font-weight: 600;
+ font-size: 14px;
+ color: #2d3748;
+}
+/* Pages */
+.page {
+ display: none;
+ padding: 30px;
+ animation: fadeIn 0.3s ease;
+}
+.page.active {
+ display: block;
+}
+@keyframes fadeIn {
+ from { opacity: 0; }
+ to { opacity: 1; }
+}
+.page-header {
+ margin-bottom: 30px;
+}
+.page-header h1 {
+ color: #1e3a5f;
+ font-size: 26px;
+ display: flex;
+ align-items: center;
+ gap: 12px;
+}
+.page-header h1 i {
+ color: #2c5282;
+}
+.page-header p {
+ color: #718096;
+ margin-top: 5px;
+ font-size: 15px;
+}
+/* Stats Grid */
+.stats-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+ gap: 20px;
+ margin-bottom: 30px;
+}
+.stat-card {
+ background: white;
+ border-radius: 16px;
+ padding: 25px;
+ display: flex;
+ align-items: center;
+ gap: 18px;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+ transition: transform 0.3s;
+}
+.stat-card:hover {
+ transform: translateY(-3px);
+}
+.stat-icon {
+ width: 60px;
+ height: 60px;
+ border-radius: 14px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 24px;
+ color: white;
+}
+.stat-card.blue .stat-icon { background: linear-gradient(135deg, #4299e1, #3182ce); }
+.stat-card.green .stat-icon { background: linear-gradient(135deg, #48bb78, #38a169); }
+.stat-card.orange .stat-icon { background: linear-gradient(135deg, #ed8936, #dd6b20); }
+.stat-card.purple .stat-icon { background: linear-gradient(135deg, #9f7aea, #805ad5); }
+.stat-info h3 {
+ font-size: 28px;
+ color: #1e3a5f;
+ margin-bottom: 4px;
+}
+.stat-info p {
+ color: #718096;
+ font-size: 14px;
+}
+/* Dashboard Grid */
+.dashboard-grid {
+ display: grid;
+ grid-template-columns: 2fr 1fr;
+ gap: 20px;
+ margin-bottom: 20px;
+}
+.dashboard-card {
+ background: white;
+ border-radius: 16px;
+ padding: 25px;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.dashboard-card.full-width {
+ grid-column: 1 / -1;
+}
+.card-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 20px;
+}
+.card-header h3 {
+ color: #1e3a5f;
+ font-size: 18px;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+}
+.card-header h3 i {
+ color: #2c5282;
+}
+.btn-small {
+ padding: 8px 16px;
+ background: #edf2f7;
+ color: #4a5568;
+ border: none;
+ border-radius: 8px;
+ font-size: 13px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.2s;
+ text-decoration: none;
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+}
+.btn-small:hover {
+ background: #e2e8f0;
+}
+.chart-container {
+ height: 280px;
+ position: relative;
+}
+/* Data Table */
+.table-responsive {
+ overflow-x: auto;
+}
+.data-table {
+ width: 100%;
+ border-collapse: collapse;
+}
+.data-table thead {
+ background: #f7fafc;
+}
+.data-table th {
+ padding: 14px 16px;
+ text-align: left;
+ font-size: 13px;
+ font-weight: 700;
+ color: #4a5568;
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+ border-bottom: 2px solid #e2e8f0;
+}
+.data-table td {
+ padding: 14px 16px;
+ font-size: 14px;
+ color: #2d3748;
+ border-bottom: 1px solid #edf2f7;
+}
+.data-table tbody tr:hover {
+ background: #f7fafc;
+}
+.status-badge {
+ padding: 4px 12px;
+ border-radius: 20px;
+ font-size: 12px;
+ font-weight: 600;
+}
+.status-active { background: #c6f6d5; color: #22543d; }
+.status-completed { background: #bee3f8; color: #2a4365; }
+.status-cancelled { background: #fed7d7; color: #742a2a; }
+.action-btns {
+ display: flex;
+ gap: 8px;
+}
+.action-btn {
+ width: 32px;
+ height: 32px;
+ border: none;
+ border-radius: 8px;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 13px;
+ transition: all 0.2s;
+}
+.action-btn.edit { background: #ebf8ff; color: #2c5282; }
+.action-btn.delete { background: #fed7d7; color: #c53030; }
+.action-btn.view { background: #f0fff4; color: #38a169; }
+.action-btn:hover {
+ transform: scale(1.1);
+}
+/* Filter Bar */
+.filter-bar {
+ display: flex;
+ gap: 15px;
+ margin-bottom: 25px;
+ flex-wrap: wrap;
+ align-items: center;
+}
+.filter-group {
+ position: relative;
+}
+.filter-group input,
+.filter-group select {
+ padding: 10px 14px;
+ border: 2px solid #e2e8f0;
+ border-radius: 10px;
+ font-size: 14px;
+ background: white;
+ min-width: 200px;
+}
+.filter-group input:focus,
+.filter-group select:focus {
+ outline: none;
+ border-color: #2c5282;
+}
+.filter-group i {
+ position: absolute;
+ right: 12px;
+ top: 50%;
+ transform: translateY(-50%);
+ color: #a0aec0;
+}
+.btn-primary {
+ padding: 10px 20px;
+ background: linear-gradient(135deg, #2c5282 0%, #1e3a5f 100%);
+ color: white;
+ border: none;
+ border-radius: 10px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s;
+ display: inline-flex;
+ align-items: center;
+ gap: 8px;
+}
+.btn-primary:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 4px 12px rgba(44, 82, 130, 0.3);
+}
+.btn-success {
+ padding: 10px 20px;
+ background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+ color: white;
+ border: none;
+ border-radius: 10px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s;
+ display: inline-flex;
+ align-items: center;
+ gap: 8px;
+}
+.btn-success:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+.btn-secondary {
+ padding: 10px 20px;
+ background: #edf2f7;
+ color: #4a5568;
+ border: none;
+ border-radius: 10px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s;
+}
+.btn-secondary:hover {
+ background: #e2e8f0;
+}
+/* Pagination */
+.pagination {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ gap: 15px;
+ margin-top: 25px;
+}
+.pagination button {
+ width: 40px;
+ height: 40px;
+ border: 2px solid #e2e8f0;
+ background: white;
+ border-radius: 10px;
+ cursor: pointer;
+ color: #4a5568;
+ transition: all 0.2s;
+}
+.pagination button:hover {
+ border-color: #2c5282;
+ color: #2c5282;
+}
+/* Action Bar */
+.action-bar {
+ margin-bottom: 25px;
+}
+/* Stations Grid */
+.stations-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+ gap: 20px;
+}
+.station-card-admin {
+ background: white;
+ border-radius: 16px;
+ padding: 25px;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+ transition: all 0.3s;
+ border: 2px solid transparent;
+}
+.station-card-admin:hover {
+ border-color: #2c5282;
+ transform: translateY(-3px);
+}
+.station-card-header {
+ display: flex;
+ align-items: center;
+ gap: 15px;
+ margin-bottom: 20px;
+}
+.station-card-icon {
+ width: 50px;
+ height: 50px;
+ background: linear-gradient(135deg, #2c5282, #1e3a5f);
+ border-radius: 12px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: white;
+ font-size: 20px;
+}
+.station-card-title h4 {
+ color: #1e3a5f;
+ font-size: 18px;
+}
+.station-card-title p {
+ color: #718096;
+ font-size: 13px;
+ margin-top: 2px;
+}
+.station-card-details {
+ margin-bottom: 20px;
+}
+.station-card-details p {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ padding: 8px 0;
+ color: #4a5568;
+ font-size: 14px;
+ border-bottom: 1px solid #f0f4f8;
+}
+.station-card-details p i {
+ color: #2c5282;
+ width: 20px;
+}
+.station-card-actions {
+ display: flex;
+ gap: 10px;
+}
+/* Report Cards */
+.report-cards {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+ gap: 20px;
+ margin-bottom: 30px;
+}
+.report-card {
+ background: white;
+ border-radius: 16px;
+ padding: 30px;
+ text-align: center;
+ cursor: pointer;
+ transition: all 0.3s;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+ border: 2px solid transparent;
+}
+.report-card:hover {
+ border-color: #2c5282;
+ transform: translateY(-5px);
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.report-card i {
+ font-size: 40px;
+ color: #2c5282;
+ margin-bottom: 15px;
+}
+.report-card h3 {
+ color: #1e3a5f;
+ font-size: 18px;
+ margin-bottom: 8px;
+}
+.report-card p {
+ color: #718096;
+ font-size: 14px;
+}
+/* Settings */
+.settings-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+ gap: 20px;
+}
+.settings-card {
+ background: white;
+ border-radius: 16px;
+ padding: 30px;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.settings-card h3 {
+ color: #1e3a5f;
+ font-size: 18px;
+ margin-bottom: 25px;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+}
+.settings-card h3 i {
+ color: #2c5282;
+}
+.settings-card .form-group {
+ margin-bottom: 18px;
+}
+.settings-card label {
+ display: block;
+ margin-bottom: 8px;
+ font-weight: 600;
+ color: #4a5568;
+ font-size: 14px;
+}
+.settings-card input,
+.settings-card select,
+.settings-card textarea {
+ width: 100%;
+ padding: 12px 14px;
+ border: 2px solid #e2e8f0;
+ border-radius: 10px;
+ font-size: 14px;
+ transition: all 0.3s;
+}
+.settings-card input:focus,
+.settings-card select:focus,
+.settings-card textarea:focus {
+ outline: none;
+ border-color: #2c5282;
+}
+.settings-card .checkbox-group {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ margin-bottom: 12px;
+}
+.settings-card .checkbox-group input {
+ width: auto;
+}
+/* Modal */
+.modal-overlay {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: rgba(0,0,0,0.5);
+ display: none;
+ align-items: center;
+ justify-content: center;
+ z-index: 1000;
+ backdrop-filter: blur(4px);
+}
+.modal-overlay.active {
+ display: flex;
+}
+.modal {
+ background: white;
+ border-radius: 20px;
+ width: 90%;
+ max-width: 600px;
+ max-height: 90vh;
+ overflow-y: auto;
+ animation: modalSlide 0.3s ease;
+}
+@keyframes modalSlide {
+ from { opacity: 0; transform: translateY(-30px); }
+ to { opacity: 1; transform: translateY(0); }
+}
+.modal-header {
+ padding: 25px 30px;
+ border-bottom: 1px solid #e2e8f0;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+.modal-header h3 {
+ color: #1e3a5f;
+ font-size: 20px;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+}
+.modal-close {
+ background: none;
+ border: none;
+ font-size: 28px;
+ color: #a0aec0;
+ cursor: pointer;
+ transition: color 0.2s;
+}
+.modal-close:hover {
+ color: #e53e3e;
+}
+.modal-body {
+ padding: 25px 30px;
+}
+.modal-footer {
+ padding: 20px 30px;
+ border-top: 1px solid #e2e8f0;
+ display: flex;
+ justify-content: flex-end;
+ gap: 12px;
+}
+/* Responsive */
+@media (max-width: 1024px) {
+ .sidebar {
+ transform: translateX(-100%);
+ }
+ .sidebar.open {
+ transform: translateX(0);
+ }
+ .main-content {
+ margin-left: 0;
+ }
+ .dashboard-grid {
+ grid-template-columns: 1fr;
+ }
+}
+@media (max-width: 768px) {
+ .stats-grid {
+ grid-template-columns: 1fr 1fr;
+ }
+ .filter-bar {
+ flex-direction: column;
+ align-items: stretch;
+ }
+ .filter-group input,
+ .filter-group select {
+ width: 100%;
+ }
+ .settings-grid {
+ grid-template-columns: 1fr;
+ }
+ .page {
+ padding: 20px;
+ }
+}
+admin-app.js
+Aciklama: Admin JavaScript - Chart.js entegrasyonu, CRUD, raporlama
+Boyut: 21107 karakter | Satir: 474
+// Demo Data
+let appointments = [
+ { id: 1, no: 'R-2026-785421', plaka: '34 ABC 123', name: 'Ahmet Yılmaz', phone: '0532 123 45 67', date: '2026-06-25', time: '10:00', station: 'Pendik İstasyonu', type: 'periyodik', price: '1.872,42 TL', status: 'active' },
+ { id: 2, no: 'R-2026-785422', plaka: '06 DEF 456', name: 'Mehmet Kaya', phone: '0533 234 56 78', date: '2026-06-25', time: '11:30', station: 'Çankaya İstasyonu', type: 'tespit', price: '1.872,42 TL', status: 'active' },
+ { id: 3, no: 'R-2026-785423', plaka: '35 GHI 789', name: 'Ayşe Demir', phone: '0534 345 67 89', date: '2026-06-26', time: '09:00', station: 'Konak İstasyonu', type: 'yenileme', price: '936,21 TL', status: 'active' },
+ { id: 4, no: 'R-2026-785424', plaka: '16 JKL 012', name: 'Fatma Şahin', phone: '0535 456 78 90', date: '2026-06-24', time: '14:30', station: 'Nilüfer İstasyonu', type: 'tadilat', price: '1.404,32 TL', status: 'completed' },
+ { id: 5, no: 'R-2026-785425', plaka: '07 MNO 345', name: 'Ali Özdemir', phone: '0536 567 89 01', date: '2026-06-27', time: '08:30', station: 'Yenimahalle İstasyonu', type: 'periyodik', price: '1.872,42 TL', status: 'active' },
+ { id: 6, no: 'R-2026-785426', plaka: '01 PQR 678', name: 'Zeynep Yıldız', phone: '0537 678 90 12', date: '2026-06-23', time: '10:00', station: 'Kadıköy İstasyonu', type: 'periyodik', price: '1.872,42 TL', status: 'cancelled' },
+ { id: 7, no: 'R-2026-785427', plaka: '42 STU 901', name: 'Mustafa Aydın', phone: '0538 789 01 23', date: '2026-06-28', time: '13:00', station: 'Bornova İstasyonu', type: 'tespit', price: '1.872,42 TL', status: 'active' },
+ { id: 8, no: 'R-2026-785428', plaka: '27 VWX 234', name: 'Elif Korkmaz', phone: '0539 890 12 34', date: '2026-06-25', time: '15:30', station: 'Bağcılar İstasyonu', type: 'yenileme', price: '936,21 TL', status: 'active' },
+ { id: 9, no: 'R-2026-785429', plaka: '31 YZ 567', name: 'Hakan Çelik', phone: '0540 901 23 45', date: '2026-06-26', time: '11:00', station: 'Muratpaşa İstasyonu', type: 'periyodik', price: '1.872,42 TL', status: 'active' },
+ { id: 10, no: 'R-2026-785430', plaka: '44 AB 890', name: 'Selin Arslan', phone: '0541 012 34 56', date: '2026-06-29', time: '09:30', station: 'Seyhan İstasyonu', type: 'tadilat', price: '1.404,32 TL', status: 'active' }
+];
+let adminStations = [
+ { id: 1, name: 'Pendik İstasyonu', city: 'İstanbul', address: 'Sanayi Mah. Tersaneler Bulvarı No:12, Pendik/İstanbul', phone: '0216 354 88 88', capacity: 60, status: 'active' },
+ { id: 2, name: 'Kadıköy İstasyonu', city: 'İstanbul', address: 'Hasanpaşa Mah. Albay Saim Bey Cad. No:5, Kadıköy/İstanbul', phone: '0216 418 88 88', capacity: 45, status: 'active' },
+ { id: 3, name: 'Bağcılar İstasyonu', city: 'İstanbul', address: 'Mahmutbey Mah. İnönü Cad. No:89, Bağcılar/İstanbul', phone: '0212 445 88 88', capacity: 55, status: 'active' },
+ { id: 4, name: 'Çankaya İstasyonu', city: 'Ankara', address: 'Kızılay Mah. Atatürk Bulvarı No:15, Çankaya/Ankara', phone: '0312 231 88 88', capacity: 50, status: 'active' },
+ { id: 5, name: 'Yenimahalle İstasyonu', city: 'Ankara', address: 'Batı Sitesi Mah. Ankara Cad. No:42, Yenimahalle/Ankara', phone: '0312 320 88 88', capacity: 40, status: 'active' },
+ { id: 6, name: 'Konak İstasyonu', city: 'İzmir', address: 'Alsancak Mah. Kıbrıs Şehitleri Cad. No:78, Konak/İzmir', phone: '0232 441 88 88', capacity: 48, status: 'active' },
+ { id: 7, name: 'Bornova İstasyonu', city: 'İzmir', address: 'Kazımdirik Mah. Ankara Cad. No:156, Bornova/İzmir', phone: '0232 388 88 88', capacity: 42, status: 'maintenance' },
+ { id: 8, name: 'Nilüfer İstasyonu', city: 'Bursa', address: 'Odunluk Mah. İzmir Yolu Cad. No:25, Nilüfer/Bursa', phone: '0224 441 88 88', capacity: 35, status: 'active' }
+];
+let users = [
+ { id: 1, name: 'Admin Kullanıcı', email: 'admin@tuvturk.com.tr', phone: '0850 222 88 88', role: 'Super Admin', status: 'active', date: '2024-01-15' },
+ { id: 2, name: 'Mehmet Yönetici', email: 'mehmet.y@tuvturk.com.tr', phone: '0532 111 22 33', role: 'Yönetici', status: 'active', date: '2024-03-20' },
+ { id: 3, name: 'Ayşe Operatör', email: 'ayse.o@tuvturk.com.tr', phone: '0533 222 33 44', role: 'Operatör', status: 'active', date: '2024-06-10' },
+ { id: 4, name: 'Ali Personel', email: 'ali.p@tuvturk.com.tr', phone: '0534 333 44 55', role: 'Personel', status: 'inactive', date: '2024-08-05' },
+ { id: 5, name: 'Zeynep Müşteri', email: 'zeynep@email.com', phone: '0535 444 55 66', role: 'Müşteri', status: 'active', date: '2025-01-12' }
+];
+const typeNames = { periyodik: 'Periyodik', tespit: 'Tespit', yenileme: 'Tekrar', tadilat: 'Tadilat' };
+const statusNames = { active: 'Aktif', completed: 'Tamamlandı', cancelled: 'İptal' };
+let currentPage = 1;
+let itemsPerPage = 10;
+let editingId = null;
+// Login
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+ e.preventDefault();
+ const username = document.getElementById('username').value;
+ const password = document.getElementById('password').value;
+ if (username === 'admin' &amp;&amp; password === 'admin123') {
+ document.getElementById('loginScreen').classList.add('hidden');
+ document.getElementById('adminWrapper').classList.remove('hidden');
+ initDashboard();
+ } else {
+ alert('Kullanıcı adı veya şifre hatalı!');
+ }
+});
+function logout() {
+ location.reload();
+}
+// Sidebar Navigation
+document.querySelectorAll('.sidebar-nav .nav-item').forEach(item =&gt; {
+ item.addEventListener('click', function(e) {
+ e.preventDefault();
+ const page = this.dataset.page;
+ if (page) {
+ showPage(page);
+ document.querySelectorAll('.sidebar-nav .nav-item').forEach(i =&gt; i.classList.remove('active'));
+ this.classList.add('active');
+ }
+ });
+});
+function showPage(page) {
+ document.querySelectorAll('.page').forEach(p =&gt; p.classList.remove('active'));
+ document.getElementById('page-' + page).classList.add('active');
+ if (page === 'dashboard') initDashboard();
+ if (page === 'appointments') renderAppointments();
+ if (page === 'stations') renderStations();
+ if (page === 'users') renderUsers();
+}
+function toggleSidebar() {
+ document.querySelector('.sidebar').classList.toggle('open');
+}
+// Dashboard
+function initDashboard() {
+ updateStats();
+ renderRecentAppointments();
+ initCharts();
+}
+function updateStats() {
+ const today = new Date().toISOString().split('T')[0];
+ const todayApps = appointments.filter(a =&gt; a.date === today).length;
+ const totalRevenue = appointments.reduce((sum, a) =&gt; {
+ return sum + parseFloat(a.price.replace(/[^0-9,]/g, '').replace(',', '.'));
+ }, 0);
+ document.getElementById('statTotal').textContent = appointments.length;
+ document.getElementById('statToday').textContent = todayApps;
+ document.getElementById('statRevenue').textContent = totalRevenue.toLocaleString('tr-TR', { minimumFractionDigits: 2 }) + ' TL';
+ document.getElementById('statStations').textContent = adminStations.filter(s =&gt; s.status === 'active').length;
+ document.getElementById('badgeAppointments').textContent = appointments.filter(a =&gt; a.status === 'active').length;
+}
+function renderRecentAppointments() {
+ const tbody = document.getElementById('recentAppointmentsTable');
+ const recent = appointments.slice(0, 5);
+ tbody.innerHTML = recent.map(a =&gt; `
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;${a.no}&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;${a.plaka}&lt;/td&gt;
+ &lt;td&gt;${a.name}&lt;/td&gt;
+ &lt;td&gt;${formatDate(a.date)}&lt;/td&gt;
+ &lt;td&gt;${a.time}&lt;/td&gt;
+ &lt;td&gt;${a.station}&lt;/td&gt;
+ &lt;td&gt;${typeNames[a.type]}&lt;/td&gt;
+ &lt;td&gt;${a.price}&lt;/td&gt;
+ &lt;td&gt;&lt;span class="status-badge status-${a.status}"&gt;${statusNames[a.status]}&lt;/span&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ `).join('');
+}
+function formatDate(dateStr) {
+ const d = new Date(dateStr);
+ return d.toLocaleDateString('tr-TR');
+}
+// Charts
+function initCharts() {
+ const weeklyCtx = document.getElementById('weeklyChart');
+ if (weeklyCtx) {
+ new Chart(weeklyCtx, {
+ type: 'bar',
+ data: {
+ labels: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
+ datasets: [{
+ label: 'Randevu Sayısı',
+ data: [12, 19, 15, 8, 22, 5, 3],
+ backgroundColor: 'rgba(44, 82, 130, 0.8)',
+ borderRadius: 8
+ }]
+ },
+ options: {
+ responsive: true,
+ maintainAspectRatio: false,
+ plugins: { legend: { display: false } },
+ scales: { y: { beginAtZero: true, ticks: { stepSize: 5 } } }
+ }
+ });
+ }
+ const typeCtx = document.getElementById('typeChart');
+ if (typeCtx) {
+ new Chart(typeCtx, {
+ type: 'doughnut',
+ data: {
+ labels: ['Periyodik', 'Tespit', 'Tekrar', 'Tadilat'],
+ datasets: [{
+ data: [45, 20, 25, 10],
+ backgroundColor: ['#2c5282', '#ed8936', '#48bb78', '#9f7aea'],
+ borderWidth: 0
+ }]
+ },
+ options: {
+ responsive: true,
+ maintainAspectRatio: false,
+ plugins: { legend: { position: 'bottom' } }
+ }
+ });
+ }
+}
+// Appointments Page
+function renderAppointments() {
+ const tbody = document.getElementById('allAppointmentsTable');
+ const start = (currentPage - 1) * itemsPerPage;
+ const end = start + itemsPerPage;
+ const pageItems = appointments.slice(start, end);
+ tbody.innerHTML = pageItems.map(a =&gt; `
+ &lt;tr&gt;
+ &lt;td&gt;&lt;input type="checkbox"&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;${a.no}&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;${a.plaka}&lt;/td&gt;
+ &lt;td&gt;${a.name}&lt;/td&gt;
+ &lt;td&gt;${a.phone}&lt;/td&gt;
+ &lt;td&gt;${formatDate(a.date)}&lt;/td&gt;
+ &lt;td&gt;${a.time}&lt;/td&gt;
+ &lt;td&gt;${a.station}&lt;/td&gt;
+ &lt;td&gt;${typeNames[a.type]}&lt;/td&gt;
+ &lt;td&gt;${a.price}&lt;/td&gt;
+ &lt;td&gt;&lt;span class="status-badge status-${a.status}"&gt;${statusNames[a.status]}&lt;/span&gt;&lt;/td&gt;
+ &lt;td&gt;
+ &lt;div class="action-btns"&gt;
+ &lt;button class="action-btn view" onclick="viewAppointment(${a.id})"&gt;&lt;i class="fas fa-eye"&gt;&lt;/i&gt;&lt;/button&gt;
+ &lt;button class="action-btn edit" onclick="editAppointment(${a.id})"&gt;&lt;i class="fas fa-edit"&gt;&lt;/i&gt;&lt;/button&gt;
+ &lt;button class="action-btn delete" onclick="deleteAppointment(${a.id})"&gt;&lt;i class="fas fa-trash"&gt;&lt;/i&gt;&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/td&gt;
+ &lt;/tr&gt;
+ `).join('');
+ const totalPages = Math.ceil(appointments.length / itemsPerPage);
+ document.getElementById('pageInfo').textContent = 'Sayfa ' + currentPage + ' / ' + totalPages;
+}
+function changePage(delta) {
+ const totalPages = Math.ceil(appointments.length / itemsPerPage);
+ currentPage += delta;
+ if (currentPage &lt; 1) currentPage = 1;
+ if (currentPage &gt; totalPages) currentPage = totalPages;
+ renderAppointments();
+}
+function viewAppointment(id) {
+ const app = appointments.find(a =&gt; a.id === id);
+ alert('Randevu Detayı:
+No: ' + app.no + '
+Plaka: ' + app.plaka + '
+İsim: ' + app.name + '
+Telefon: ' + app.phone + '
+Tarih: ' + formatDate(app.date) + ' ' + app.time + '
+İstasyon: ' + app.station + '
+Tür: ' + typeNames[app.type] + '
+Ücret: ' + app.price);
+}
+function editAppointment(id) {
+ editingId = id;
+ const app = appointments.find(a =&gt; a.id === id);
+ document.getElementById('editPlaka').value = app.plaka;
+ document.getElementById('editName').value = app.name;
+ document.getElementById('editPhone').value = app.phone;
+ document.getElementById('editDate').value = app.date;
+ document.getElementById('editTime').value = app.time;
+ document.getElementById('editStatus').value = app.status;
+ openModal('appointmentModal');
+}
+function saveAppointment() {
+ if (editingId) {
+ const app = appointments.find(a =&gt; a.id === editingId);
+ app.plaka = document.getElementById('editPlaka').value;
+ app.name = document.getElementById('editName').value;
+ app.phone = document.getElementById('editPhone').value;
+ app.date = document.getElementById('editDate').value;
+ app.time = document.getElementById('editTime').value;
+ app.status = document.getElementById('editStatus').value;
+ }
+ closeModal('appointmentModal');
+ renderAppointments();
+ updateStats();
+}
+function deleteAppointment(id) {
+ if (confirm('Bu randevuyu silmek istediğinize emin misiniz?')) {
+ appointments = appointments.filter(a =&gt; a.id !== id);
+ renderAppointments();
+ updateStats();
+ }
+}
+function exportAppointments() {
+ let csv = 'Randevu No,Plaka,Ad Soyad,Telefon,Tarih,Saat,İstasyon,Tür,Ücret,Durum
+';
+ appointments.forEach(a =&gt; {
+ csv += a.no + ',' + a.plaka + ',' + a.name + ',' + a.phone + ',' + a.date + ',' + a.time + ',' + a.station + ',' + typeNames[a.type] + ',' + a.price + ',' + statusNames[a.status] + '
+';
+ });
+ const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+ const link = document.createElement('a');
+ link.href = URL.createObjectURL(blob);
+ link.download = 'randevular_' + new Date().toISOString().split('T')[0] + '.csv';
+ link.click();
+}
+// Stations Page
+function renderStations() {
+ const grid = document.getElementById('stationsGrid');
+ grid.innerHTML = adminStations.map(s =&gt; `
+ &lt;div class="station-card-admin"&gt;
+ &lt;div class="station-card-header"&gt;
+ &lt;div class="station-card-icon"&gt;&lt;i class="fas fa-building"&gt;&lt;/i&gt;&lt;/div&gt;
+ &lt;div class="station-card-title"&gt;
+ &lt;h4&gt;${s.name}&lt;/h4&gt;
+ &lt;p&gt;${s.city}&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="station-card-details"&gt;
+ &lt;p&gt;&lt;i class="fas fa-map-marker-alt"&gt;&lt;/i&gt; ${s.address}&lt;/p&gt;
+ &lt;p&gt;&lt;i class="fas fa-phone"&gt;&lt;/i&gt; ${s.phone}&lt;/p&gt;
+ &lt;p&gt;&lt;i class="fas fa-car"&gt;&lt;/i&gt; Kapasite: ${s.capacity} araç/gün&lt;/p&gt;
+ &lt;p&gt;&lt;i class="fas fa-circle" style="color:${s.status === 'active' ? '#48bb78' : s.status === 'maintenance' ? '#ed8936' : '#e53e3e'}"&gt;&lt;/i&gt; ${s.status === 'active' ? 'Aktif' : s.status === 'maintenance' ? 'Bakımda' : 'Pasif'}&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class="station-card-actions"&gt;
+ &lt;button class="btn-primary" style="padding:8px 16px;font-size:13px;" onclick="editStation(${s.id})"&gt;&lt;i class="fas fa-edit"&gt;&lt;/i&gt; Düzenle&lt;/button&gt;
+ &lt;button class="btn-secondary" style="padding:8px 16px;font-size:13px;" onclick="deleteStation(${s.id})"&gt;&lt;i class="fas fa-trash"&gt;&lt;/i&gt; Sil&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ `).join('');
+}
+function openStationModal() {
+ editingId = null;
+ document.getElementById('stationNameInput').value = '';
+ document.getElementById('stationCityInput').value = 'İstanbul';
+ document.getElementById('stationAddressInput').value = '';
+ document.getElementById('stationPhoneInput').value = '';
+ document.getElementById('stationCapacityInput').value = 50;
+ document.getElementById('stationStatusInput').value = 'active';
+ openModal('stationModal');
+}
+function editStation(id) {
+ editingId = id;
+ const s = adminStations.find(st =&gt; st.id === id);
+ document.getElementById('stationNameInput').value = s.name;
+ document.getElementById('stationCityInput').value = s.city;
+ document.getElementById('stationAddressInput').value = s.address;
+ document.getElementById('stationPhoneInput').value = s.phone;
+ document.getElementById('stationCapacityInput').value = s.capacity;
+ document.getElementById('stationStatusInput').value = s.status;
+ openModal('stationModal');
+}
+function saveStation() {
+ const data = {
+ name: document.getElementById('stationNameInput').value,
+ city: document.getElementById('stationCityInput').value,
+ address: document.getElementById('stationAddressInput').value,
+ phone: document.getElementById('stationPhoneInput').value,
+ capacity: parseInt(document.getElementById('stationCapacityInput').value),
+ status: document.getElementById('stationStatusInput').value
+ };
+ if (editingId) {
+ const s = adminStations.find(st =&gt; st.id === editingId);
+ Object.assign(s, data);
+ } else {
+ data.id = Math.max(...adminStations.map(s =&gt; s.id)) + 1;
+ adminStations.push(data);
+ }
+ closeModal('stationModal');
+ renderStations();
+ updateStats();
+}
+function deleteStation(id) {
+ if (confirm('Bu istasyonu silmek istediğinize emin misiniz?')) {
+ adminStations = adminStations.filter(s =&gt; s.id !== id);
+ renderStations();
+ updateStats();
+ }
+}
+// Users Page
+function renderUsers() {
+ const tbody = document.getElementById('usersTable');
+ tbody.innerHTML = users.map(u =&gt; `
+ &lt;tr&gt;
+ &lt;td&gt;#${u.id}&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;${u.name}&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;${u.email}&lt;/td&gt;
+ &lt;td&gt;${u.phone}&lt;/td&gt;
+ &lt;td&gt;&lt;span class="status-badge" style="background:#ebf8ff;color:#2c5282"&gt;${u.role}&lt;/span&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;span class="status-badge status-${u.status}"&gt;${u.status === 'active' ? 'Aktif' : 'Pasif'}&lt;/span&gt;&lt;/td&gt;
+ &lt;td&gt;${formatDate(u.date)}&lt;/td&gt;
+ &lt;td&gt;
+ &lt;div class="action-btns"&gt;
+ &lt;button class="action-btn edit"&gt;&lt;i class="fas fa-edit"&gt;&lt;/i&gt;&lt;/button&gt;
+ &lt;button class="action-btn delete"&gt;&lt;i class="fas fa-trash"&gt;&lt;/i&gt;&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/td&gt;
+ &lt;/tr&gt;
+ `).join('');
+}
+function openUserModal() {
+ alert('Kullanıcı ekleme modalı açılacak');
+}
+// Reports
+function generateReport(type) {
+ const reportContent = document.getElementById('reportContent');
+ const reportResult = document.getElementById('reportResult');
+ let html = '';
+ if (type === 'daily') {
+ const today = new Date().toISOString().split('T')[0];
+ const todayApps = appointments.filter(a =&gt; a.date === today);
+ const revenue = todayApps.reduce((sum, a) =&gt; sum + parseFloat(a.price.replace(/[^0-9,]/g, '').replace(',', '.')), 0);
+ html = `
+ &lt;div class="stats-grid" style="margin-bottom:20px;"&gt;
+ &lt;div class="stat-card blue"&gt;&lt;div class="stat-info"&gt;&lt;h3&gt;${todayApps.length}&lt;/h3&gt;&lt;p&gt;Bugünkü Randevu&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+ &lt;div class="stat-card green"&gt;&lt;div class="stat-info"&gt;&lt;h3&gt;${revenue.toLocaleString('tr-TR')} TL&lt;/h3&gt;&lt;p&gt;Bugünkü Gelir&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;table class="data-table"&gt;
+ &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Plaka&lt;/th&gt;&lt;th&gt;İsim&lt;/th&gt;&lt;th&gt;Saat&lt;/th&gt;&lt;th&gt;İstasyon&lt;/th&gt;&lt;th&gt;Ücret&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+ &lt;tbody&gt;${todayApps.map(a =&gt; `&lt;tr&gt;&lt;td&gt;${a.plaka}&lt;/td&gt;&lt;td&gt;${a.name}&lt;/td&gt;&lt;td&gt;${a.time}&lt;/td&gt;&lt;td&gt;${a.station}&lt;/td&gt;&lt;td&gt;${a.price}&lt;/td&gt;&lt;/tr&gt;`).join('')}&lt;/tbody&gt;
+ &lt;/table&gt;
+ `;
+ } else if (type === 'weekly') {
+ html = `&lt;div style="padding:20px;text-align:center;color:#718096;"&gt;&lt;i class="fas fa-chart-line" style="font-size:48px;margin-bottom:15px;display:block;"&gt;&lt;/i&gt;Haftalık rapor verileri burada görüntülenecek.&lt;/div&gt;`;
+ } else if (type === 'monthly') {
+ html = `&lt;div style="padding:20px;text-align:center;color:#718096;"&gt;&lt;i class="fas fa-calendar-alt" style="font-size:48px;margin-bottom:15px;display:block;"&gt;&lt;/i&gt;Aylık rapor verileri burada görüntülenecek.&lt;/div&gt;`;
+ } else if (type === 'station') {
+ html = `&lt;div style="padding:20px;text-align:center;color:#718096;"&gt;&lt;i class="fas fa-building" style="font-size:48px;margin-bottom:15px;display:block;"&gt;&lt;/i&gt;İstasyon bazlı rapor verileri burada görüntülenecek.&lt;/div&gt;`;
+ }
+ reportContent.innerHTML = html;
+ reportResult.style.display = 'block';
+}
+function downloadReport() {
+ alert('Rapor PDF olarak indiriliyor...');
+}
+// Settings
+function savePrices() {
+ alert('Fiyatlar kaydedildi!');
+}
+function saveWorkHours() {
+ alert('Çalışma saatleri kaydedildi!');
+}
+function saveNotifications() {
+ alert('Bildirim ayarları kaydedildi!');
+}
+function changePassword() {
+ alert('Şifre değiştirildi!');
+}
+// Modal Functions
+function openModal(id) {
+ document.getElementById(id).classList.add('active');
+}
+function closeModal(id) {
+ document.getElementById(id).classList.remove('active');
+ editingId = null;
+}
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay =&gt; {
+ overlay.addEventListener('click', function(e) {
+ if (e.target === this) {
+ this.classList.remove('active');
+ }
+ });
+});
+// Search filter
+document.getElementById('searchAppointments').addEventListener('input', function() {
+ const term = this.value.toLowerCase();
+ const rows = document.querySelectorAll('#allAppointmentsTable tr');
+ rows.forEach(row =&gt; {
+ const text = row.textContent.toLowerCase();
+ row.style.display = text.includes(term) ? '' : 'none';
+ });
+});
+PROJE OZETI
+1. MUSTERI RANDEVU EKRANI (index.html + style.css + app.js)
+- 5 adimli randevu sureci: Arac Bilgileri -> Muayene Turu -> Tarih/Saat -> Kisisel Bilgiler -> Onay
+- 8 sehir, 15+ istasyon secimi
+- Dinamik takvim: Ay gezinme, gecmis tarih engelleme, hafta sonu kapatma
+- Saat dilimleri: 08:00-16:30 arasi, dolu slot simulasyonu
+- 4 muayene turu: Periyodik, Tespit, Tekrar, Tadilat
+- Form dogrulama: Plaka, TC Kimlik, telefon, e-posta
+- KVKK onaylari, randevu onay karti (QR kod, randevu no)
+- Responsive tasarim, animasyonlar
+2. ADMIN PANELI (admin.html + admin-style.css + admin-app.js)
+- Giris ekrani (demo: admin / admin123)
+- Dashboard: 4 istatistik karti, haftalik grafik (Chart.js), pasta grafik
+- Randevular: CRUD, filtreleme, arama, CSV disa aktarma, sayfalama
+- Istasyonlar: Kart gorunumu, ekleme/duzenleme/silme
+- Kullanicilar: Rol tabanli liste (Super Admin, Yonetici, Operator, Personel, Musteri)
+- Raporlar: Gunluk/haftalik/aylik/istasyon bazli
+- Ayarlar: Fiyat yonetimi, calisma saatleri, bildirim ayarlari, sifre degistirme
+3. TEKNOLOJILER
+- HTML5, CSS3, Vanilla JavaScript
+- Font Awesome 6.4.0 (ikonlar)
+- Chart.js (grafikler - admin paneli)
+- LocalStorage tabanli veri yonetimi (demo)
